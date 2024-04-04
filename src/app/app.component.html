@@ -1,3 +1,35 @@
-<h1 class="text-3xl font-bold underline text-center">
-  SAE Groupe 10
-</h1>
+<div class="navbar bg-gray-300">
+  <div class="flex-1">
+    <a class="btn btn-ghost text-xl" [routerLink]="['/']"> <img ngSrc="{{logo}}" alt="Logo" width="50" height="50">Rythmopolis</a>
+  </div>
+  <div class="flex-none gap-2">
+    <!--    <input type="checkbox" value="dark" class="toggle theme-controller"/>-->
+    <div class="dropdown dropdown-end">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+        <div class="w-16 rounded-full">
+          <img alt="Avatar" ngSrc="{{image}}" width="900" height="900"/>
+        </div>
+      </div>
+      <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+        <li>
+          <a class="justify-between">
+            Profil
+          </a>
+        </li>
+        <li><a>{{connection}}</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="text-center">
+  <h1
+    class="text-3xl font-bold bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
+    Rythmopolis
+  </h1>
+  <h2 class="mt-3">
+    Réservez des tickets pour des expériences inoubliables !
+  </h2>
+</div>
+
+<router-outlet></router-outlet>
