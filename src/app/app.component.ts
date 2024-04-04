@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
-import {CommonModule, NgOptimizedImage} from '@angular/common';
-import {RouterLink, RouterOutlet} from '@angular/router';
-import {ConnexionComponent} from "./components/connexion/connexion.component";
+import { Component } from '@angular/core';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { ConnexionComponent } from "./components/connexion/connexion.component";
 
 @Component({
   selector: 'app-root',
@@ -16,4 +16,6 @@ export class AppComponent {
   connection: string = 'Se connecter';
   logo: string = 'assets/logo.png';
   pseudo: string = '';
+
+
 }
