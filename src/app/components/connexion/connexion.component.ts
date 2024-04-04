@@ -1,13 +1,25 @@
 import { Component } from '@angular/core';
-import {ReactiveFormsModule} from "@angular/forms";
-import {RouterLink} from "@angular/router";
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
+import {AuthentificationService} from "../../services/authentification.service";
+import {MatError, MatFormField} from "@angular/material/form-field";
+import {MatCard, MatCardContent, MatCardTitle} from "@angular/material/card";
+import {MatInput} from "@angular/material/input";
+import {MatButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-connexion',
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    RouterLink
+    RouterLink,
+    MatFormField,
+    MatCardTitle,
+    MatCardContent,
+    MatCard,
+    MatInput,
+    MatError,
+    MatButton
   ],
   templateUrl: './connexion.component.html',
   styleUrl: './connexion.component.css'
@@ -18,7 +30,7 @@ export class ConnexionComponent {
     password: new FormControl("GrosSecret", [Validators.required]),
   });
 
-  constructor(private authService: AuthService,
+  constructor(private authService: AuthentificationService,
               private route: ActivatedRoute,
               private router: Router) {
   }
@@ -34,7 +46,7 @@ export class ConnexionComponent {
   login() {
     this.authService.login({ email: this.email?.value, password: this.password?.value }).subscribe(res => {
       if (res.id) {
-        this.router.navigateByUrl('/dashboard')
+        this.router.navigateByUrl('/')
       }
     })
   }
