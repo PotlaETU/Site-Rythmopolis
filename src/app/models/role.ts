@@ -1,0 +1,6 @@
+export enum Role{
+  ADMIN = 'ADMIN',
+  GESTIONNAIRE = 'GESTIONNAIRE',
+  ACTIF = 'ACTIF',
+  NON_ACTIF = 'NON_ACTIF'
+}
