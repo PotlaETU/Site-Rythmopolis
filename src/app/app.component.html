@@ -3,7 +3,9 @@
     <a class="p-1.5" [routerLink]="['/']"> <img ngSrc="{{logo}}" alt="Logo" width="50" height="50"></a>
   </div>
   <div class="flex-none gap-2">
-    <a class="btn btn-ghost text-xl">{{pseudo}}</a>
+    <p>Réservations</p> <!-- Si connecté-->
+    <p>Evenements</p>
+    <p>{{pseudo}}</p>
     <!--    <input type="checkbox" value="dark" class="toggle theme-controller"/>-->
     <div class="dropdown dropdown-end">
       <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
@@ -12,11 +14,13 @@
         </div>
       </div>
       <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+          @if(false){
         <li>
           <a class="justify-between">
             Profil
           </a>
-        </li>
+          </li>
+          }
         <li><a>{{connection}}</a></li>
       </ul>
     </div>
