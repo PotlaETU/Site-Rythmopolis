@@ -30,6 +30,8 @@ export class ConnexionComponent {
     password: new FormControl("NiqueLesJuifs", [Validators.required]),
   });
 
+  loading = false;
+
   constructor(private authService: AuthentificationService,
     private route: ActivatedRoute,
     private router: Router) {
@@ -44,9 +46,14 @@ export class ConnexionComponent {
   }
 
   login() {
+    this.loading = true;s
     this.authService.login({ email: this.email?.value, password: this.password?.value }).subscribe(res => {
       if (res.id) {
         this.router.navigateByUrl('/')
+      }
+      else {
+        this.loading = false;
+        console.error("Erreur")
       }
     })
   }

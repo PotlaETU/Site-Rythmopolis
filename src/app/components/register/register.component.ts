@@ -20,6 +20,8 @@ export class RegisterComponent {
     name: new FormControl("", [Validators.required]),
   });
 
+  loading = false;
+
   constructor(private authService: AuthentificationService,
               private route: ActivatedRoute,
               private router: Router) {
@@ -38,9 +40,15 @@ export class RegisterComponent {
   }
 
   register() {
+    this.loading = true;
     this.authService.register({ email: this.email?.value, name: this.name?.value, password: this.password?.value}).subscribe(res => {
       if (res.id) {
+        this.loading = false;
         this.router.navigateByUrl('/dashboard')
+      } 
+      else {
+        this.loading = false;
+        console.error("Erreur")
       }
     })
   }
