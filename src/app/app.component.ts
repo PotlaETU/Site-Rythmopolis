@@ -6,8 +6,7 @@ import {ConnexionComponent} from "./components/connexion/connexion.component";
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, ConnexionComponent],
-  imports: [CommonModule, RouterOutlet, NgOptimizedImage],
+  imports: [CommonModule, RouterOutlet, ConnexionComponent, NgOptimizedImage],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
