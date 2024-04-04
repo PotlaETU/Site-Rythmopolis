@@ -26,8 +26,8 @@ import {MatButton} from "@angular/material/button";
 })
 export class ConnexionComponent {
   form: FormGroup = new FormGroup({
-    email: new FormControl("robert.duchmol@domain.fr", [Validators.required, Validators.email]),
-    password: new FormControl("GrosSecret", [Validators.required]),
+    email: new FormControl("HALLAH.WAKBAR@jesuisbougnoul.fr",[Validators.required, Validators.email]),
+    password: new FormControl("NiqueLesJuifs",[Validators.required]),
   });
 
   constructor(private authService: AuthentificationService,
@@ -35,11 +35,11 @@ export class ConnexionComponent {
               private router: Router) {
   }
 
-  get email() {
+  get email(): any {
     return this.form.get('email');
   }
 
-  get password() {
+  get password(): any {
     return this.form.get('password');
   }
 
