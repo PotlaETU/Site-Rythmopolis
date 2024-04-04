@@ -31,13 +31,17 @@
       <div>
         <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
           @if (loading) {
-              <span class="loading loading-spinner"></span>Inscription
+              <span class="loading loading-spinner mr-2"></span> 
           }
-          @else {
-              Inscription
-            }
+          Inscription
         </button>
       </div>
+        @if (error) {
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+              <strong class="font-bold">Aie !</strong>
+              <span class="block sm:inline ml-2">L'inscription a échouée . . . Réssayez</span>
+            </div>
+          }
     </form>
       <div class="mt-10 text-center font-bold leading-9 tracking-tight">Déjà un compte ? <a [routerLink]="['/login']" class="text-primary cursor-pointer">Connectez-vous</a></div>
   </div>
