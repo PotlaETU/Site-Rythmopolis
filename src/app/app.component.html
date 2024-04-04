@@ -8,9 +8,6 @@
           <a [routerLink]="['']">Réservations</a> <!-- Si connecté-->
           <a [routerLink]="['']">Evenements</a>
     }
-    @else {
-      <a [routerLink]="['/login']">Se connecter</a> <!-- Si non connecté-->
-    }
     <p>{{pseudo}}</p>
     <!--DaisyUI changement du thème https://daisyui.com/components/theme-controller/ -->
     <label class="cursor-pointer grid place-items-center">
