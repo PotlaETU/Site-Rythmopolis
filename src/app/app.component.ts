@@ -14,4 +14,5 @@ export class AppComponent {
   image = 'assets/avatar.png'
   connection: string = 'Se connecter';
   logo: string = 'assets/logo.png';
+  pseudo: string = this.connection;
 }

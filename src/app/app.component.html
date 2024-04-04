@@ -1,8 +1,9 @@
 <div class="navbar bg-gray-300">
   <div class="flex-1">
-    <a class="btn btn-ghost text-xl" [routerLink]="['/']"> <img ngSrc="{{logo}}" alt="Logo" width="50" height="50">Rythmopolis</a>
+    <a class="p-1.5" [routerLink]="['/']"> <img ngSrc="{{logo}}" alt="Logo" width="50" height="50"></a>
   </div>
   <div class="flex-none gap-2">
+    <a class="btn btn-ghost text-xl">{{pseudo}}</a>
     <!--    <input type="checkbox" value="dark" class="toggle theme-controller"/>-->
     <div class="dropdown dropdown-end">
       <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
