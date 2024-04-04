@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import {ConnexionComponent} from "./components/connexion/connexion.component";
 
@@ -7,6 +7,7 @@ import {ConnexionComponent} from "./components/connexion/connexion.component";
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule, RouterOutlet, ConnexionComponent],
+  imports: [CommonModule, RouterOutlet, NgOptimizedImage],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
