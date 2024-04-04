@@ -1,0 +1,15 @@
+<div>
+  @if (events.length === 0) {
+  <p>Aucun événement à venir</p>
+  }
+@else {
+
+  <h2>Événements à venir</h2>
+  @for(event of events; track event.id) {
+  <div>
+    <h3>{{ event.name }}</h3>
+    <p>{{ event.date }}</p>
+    <p>{{ event.description }}</p>
+  </div>}
+}
+</div>
