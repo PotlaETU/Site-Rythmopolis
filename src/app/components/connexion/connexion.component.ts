@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {ActivatedRoute, Router, RouterLink} from "@angular/router";
-import {AuthentificationService} from "../../services/authentification.service";
-import {MatError, MatFormField} from "@angular/material/form-field";
-import {MatCard, MatCardContent, MatCardTitle} from "@angular/material/card";
-import {MatInput} from "@angular/material/input";
-import {MatButton} from "@angular/material/button";
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
+import { AuthentificationService } from "../../services/authentification.service";
+import { MatError, MatFormField } from "@angular/material/form-field";
+import { MatCard, MatCardContent, MatCardTitle } from "@angular/material/card";
+import { MatInput } from "@angular/material/input";
+import { MatButton } from "@angular/material/button";
 
 @Component({
   selector: 'app-connexion',
@@ -19,20 +19,20 @@ import {MatButton} from "@angular/material/button";
     MatCard,
     MatInput,
     MatError,
-    MatButton
+    MatButton,
   ],
   templateUrl: './connexion.component.html',
   styleUrl: './connexion.component.css'
 })
 export class ConnexionComponent {
   form: FormGroup = new FormGroup({
-    email: new FormControl("HALLAH.WAKBAR@jesuisbougnoul.fr",[Validators.required, Validators.email]),
-    password: new FormControl("NiqueLesJuifs",[Validators.required]),
+    email: new FormControl("HALLAH.WAKBAR@jesuisbougnoul.fr", [Validators.required, Validators.email]),
+    password: new FormControl("NiqueLesJuifs", [Validators.required]),
   });
 
   constructor(private authService: AuthentificationService,
-              private route: ActivatedRoute,
-              private router: Router) {
+    private route: ActivatedRoute,
+    private router: Router) {
   }
 
   get email(): any {
