@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { ConnexionComponent } from "./components/connexion/connexion.component";
+import { AuthentificationService } from './services/authentification.service';
 
 @Component({
   selector: 'app-root',
@@ -17,5 +18,19 @@ export class AppComponent {
   logo: string = 'assets/logo.png';
   pseudo: string = '';
 
+  authService: AuthentificationService = inject(AuthentificationService);
 
+  isLogged(): boolean {
+    let u: boolean = false;
+    this.authService.isLoggedIn$.subscribe(
+      logged => {
+        u = logged;
+      }
+    );
+    return u;
+  }
+
+  constructor() {
+    this.pseudo = this.authService.userValue.name;
+  }
 }
