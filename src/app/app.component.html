@@ -1,9 +1,9 @@
 <div class="min-h-screen">
 <div class="navbar">
   <div class="flex-1">
-    <a class="p-1.5" [routerLink]="['']"> <img ngSrc="{{logo}}" alt="Logo" width="50" height="50"></a>
+    <a class="p-1.5" [routerLink]="['']"> <img ngSrc="{{logo}}" alt="Logo" width="100" height="50"></a>
   </div>
-  <div class="flex-none gap-2">
+  <div class="flex-none gap-2" id="navbar-compte">
     @if (isLogged()) {
           <a [routerLink]="['']">Réservations</a> <!-- Si connecté-->
           <a [routerLink]="['']">Evenements</a>
