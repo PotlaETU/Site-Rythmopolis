@@ -5,6 +5,8 @@ import { RegisterComponent } from "./components/register/register.component";
 import { AccueilComponent } from './components/accueil/accueil.component';
 import {AProposComponent} from "./components/a-propos/a-propos.component";
 import {ContactComponent} from "./components/contact/contact.component";
+import {ListeClientComponent} from "./components/liste-client/liste-client.component";
+import {GuardClients} from "./services/acces-control.guard.ts.service";
 
 export const routes: Routes = [
   { path: "", pathMatch: "full", component: AccueilComponent },
@@ -12,5 +14,7 @@ export const routes: Routes = [
   { path: "register", component: RegisterComponent },
   { path : "about", component: AProposComponent },
   { path : "contact", component: ContactComponent },
+  { path: "clients", component: ListeClientComponent},
+  // { path: "clients", component: ListeClientComponent, canActivate: [GuardClients]},
   { path: "**", component: PageNotFoundComponent }
 ];
