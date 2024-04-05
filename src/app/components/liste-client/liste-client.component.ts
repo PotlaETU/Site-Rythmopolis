@@ -1,6 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {ClientService} from "../../services/client.service";
-import {Observable} from "rxjs";
+import {map, Observable} from "rxjs";
 import {Client} from "../../models/client";
 import {AsyncPipe} from "@angular/common";
 import {GuardClients} from "../../services/acces-control.guard.ts.service";
@@ -22,8 +22,22 @@ export class ListeClientComponent {
 
   ngOnInit() {
     this.clients$ = this.clientService.getClients();
-
   }
+
+  clients(sort: number = 1 | 2){
+    if(sort === 1){
+      this.clients$ = this.clientService.getClients().pipe(
+        map(clients => clients.sort((a, b) => a.nom > b.nom ? 1 : -1))
+      );
+    }
+    else if(sort === 2){
+      this.clients$ = this.clientService.getClients().pipe(
+        map(clients => clients.sort((a, b) => a.ville > b.ville ? 1 : -1))
+      );
+    }
+  }
+
+
 
 
 

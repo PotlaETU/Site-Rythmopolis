@@ -10,6 +10,7 @@ export const routes: Routes = [
   { path: "", pathMatch: "full", component: AccueilComponent },
   { path: "login", component: ConnexionComponent },
   { path: "register", component: RegisterComponent },
-  { path: "clients", component: ListeClientComponent, canActivate: [GuardClients]},
+  { path: "clients", component: ListeClientComponent},
+  // { path: "clients", component: ListeClientComponent, canActivate: [GuardClients]},
   { path: "**", component: PageNotFoundComponent }
 ];
