@@ -4,10 +4,18 @@ module.exports = {
     "./src/**/*.{html,ts}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+      },
+    },
   },
   plugins: [
+    require('@tailwindcss/forms'),
     require("daisyui")
   ],
+  daisyui: {
+    themes: ["light", "dark"],
+  },
 }
 
