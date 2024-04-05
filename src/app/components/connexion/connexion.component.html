@@ -4,25 +4,46 @@
   </div>
 
   <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-    <form [formGroup]="form"  (ngSubmit)="login()" class="space-y-6" action="#" method="POST">
+    <form [formGroup]="form"  (ngSubmit)="login()" class="space-y-6 group" action="#" method="POST" novalidate>
       <div>
-        <label for="email" class="block text-sm font-medium leading-6 ">Adresse Mail</label>
+        <label for="email" class="block text-sm font-medium leading-6">Adresse Mail
         <div class="mt-2">
-          <input [formControlName]="email" placeholder="exemple@exemple.fr"  id="email" name="email" type="email" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+          <input formControlName="email"
+                 pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                 placeholder=" "
+                 id="email"
+                 name="email"
+                 type="email"
+                 autocomplete="email"
+                 required
+                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer">
+          <mat-error class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+            E-mail invalide
+          </mat-error>
         </div>
+        </label>
+      </div>
+      <div>
+          <label for="password" class="block text-sm font-medium leading-6">Mot de Passe
+            <div class="mt-2">
+              <input id="password"
+                     formControlName="password"
+                     name="password"
+                     type="password"
+                     pattern=".{7,}"
+                     placeholder=" "
+                     autocomplete="current-password"
+                     required
+                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer">
+            </div>
+            <mat-error class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+              Un mot de passe de plus de 7 caractères est requis
+            </mat-error>
+          </label>
       </div>
 
       <div>
-        <div class="flex items-center justify-between">
-          <label for="password" class="block text-sm font-medium leading-6">Mot de Passe</label>
-        </div>
-        <div class="mt-2">
-          <input id="password" name="password" type="password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-        </div>
-      </div>
-
-      <div>
-        <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+        <button type="submit" class="btn btn-primary w-full group-invalid:pointer-events-none group-invalid:opacity-30">
           @if (loading) {
               <span class="loading loading-spinner mr-2"></span>
           }
