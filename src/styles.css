@@ -19,8 +19,16 @@ body {
 
 footer {
     margin-top: auto;
-}   
+}
 
 * {
     transition: all 0.3s ease;
+}
+
+label:focus{
+  outline: none;
+}
+
+input:focus{
+  outline: none;
 }

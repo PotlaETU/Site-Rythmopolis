@@ -8,6 +8,7 @@ import { MatInput } from "@angular/material/input";
 import { MatButton } from "@angular/material/button";
 import { catchError } from 'rxjs/operators';
 import { EMPTY } from 'rxjs';
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-connexion',
@@ -22,14 +23,15 @@ import { EMPTY } from 'rxjs';
     MatInput,
     MatError,
     MatButton,
+    NgIf,
   ],
   templateUrl: './connexion.component.html',
   styleUrl: './connexion.component.css'
 })
 export class ConnexionComponent {
   form: FormGroup = new FormGroup({
-    email: new FormControl("HALLAH.WAKBAR@jesuisbougnoul.fr", [Validators.required, Validators.email]),
-    password: new FormControl("NiqueLesJuifs", [Validators.required]),
+    email: new FormControl("", [Validators.required, Validators.email]),
+    password: new FormControl("", [Validators.required]),
   });
 
   loading = false;
@@ -50,6 +52,9 @@ export class ConnexionComponent {
 
   login() {
     this.loading = true;
+    if (this.form.invalid){
+      this.form.markAllAsTouched()
+    }
     this.authService.login({ email: this.email?.value, password: this.password?.value })
       .pipe(
         catchError(err => {
@@ -63,7 +68,7 @@ export class ConnexionComponent {
         if (res.id) {
           this.loading = false;
           this.router.navigateByUrl('/');
-        } 
+        }
       });
   }
 

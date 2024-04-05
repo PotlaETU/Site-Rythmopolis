@@ -3,14 +3,16 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angula
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { AuthentificationService } from "../../services/authentification.service";
 import { catchError, EMPTY } from 'rxjs';
+import {MatError} from "@angular/material/form-field";
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    RouterLink
-  ],
+    imports: [
+        ReactiveFormsModule,
+        RouterLink,
+        MatError
+    ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
@@ -19,6 +21,11 @@ export class RegisterComponent {
     email: new FormControl("", [Validators.required, Validators.email]),
     password: new FormControl("", [Validators.required]),
     name: new FormControl("", [Validators.required]),
+    surname: new FormControl("", [Validators.required]),
+    adresse: new FormControl("", [Validators.required]),
+    codePostal: new FormControl("", [Validators.required]),
+    passwordverif : new FormControl("", [Validators.required]),
+    ville : new FormControl("", [Validators.required])
   });
 
   loading = false;
@@ -37,10 +44,29 @@ export class RegisterComponent {
     return this.form.get('password');
   }
 
+  get adresse(): any{
+    return this.form.get('adresse');
+  }
+
   get name(): any {
     return this.form.get('name');
   }
 
+  get surname(): any{
+    return this.form.get('surname');
+  }
+
+  get passwordVerif():any{
+    return this.form.get('passwordVerif')
+  }
+
+  get ville():any{
+    return this.form.get('ville')
+  }
+
+  get codePostal():any{
+    return this.form.get('codePostal')
+  }
   register() {
     this.loading = true;
     this.authService.register({ email: this.email?.value, name: this.name?.value, password: this.password?.value })

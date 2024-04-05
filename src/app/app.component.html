@@ -1,9 +1,9 @@
 <div class="min-h-screen">
 <div class="navbar">
   <div class="flex-1">
-    <a class="p-1.5" [routerLink]="['']"> <img ngSrc="{{logo}}" alt="Logo" width="50" height="50"></a>
+    <a class="p-1.5" [routerLink]="['']"> <img ngSrc="{{logo}}" alt="Logo" width="100" height="50"></a>
   </div>
-  <div class="flex-none gap-2">
+  <div class="flex-none gap-2" id="navbar-compte">
     @if (isLogged()) {
           <a [routerLink]="['']">Réservations</a> <!-- Si connecté-->
           <a [routerLink]="['']">Evenements</a>
@@ -30,7 +30,7 @@
           </li>
           <li>
             <a class="justify-between" (click)="authService.logout()">
-              Se déconnecters
+              Se déconnecter
             </a>
           </li>
           }
@@ -48,7 +48,7 @@
 
   <router-outlet></router-outlet>
 
-<footer class="sticky top-[100vh] footer footer-center text-primary-content p-2">
+<footer class="sticky top-[100vh] footer footer-center p-2">
   <aside>
     <!-- <img ngSrc="assets/logo.png" width="150" height="150" class="inline-block" alt="logo"> -->
     <p class="font-bold  bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
@@ -56,8 +56,8 @@
     <nav class="grid grid-flow-col gap-4 ">
       <a class="link link-hover" [routerLink]="['/login']">Se connecter</a>
       <a class="link link-hover" [routerLink]="['/register']">S'enregistrer</a>
-      <a class="link link-hover">À propos</a>
-      <a class="link link-hover">Contact</a>
+      <a class="link link-hover" [routerLink]="['/about']">À propos</a>
+      <a class="link link-hover" [routerLink]="['/contact']">Contact</a>
     </nav>
     <p>Siège Social <br> 31 Rue Martha Desrumaux - 62320 Drocourt</p>
   </aside>
