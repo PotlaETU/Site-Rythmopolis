@@ -1,15 +1,28 @@
-<div>
-  @if (events.length === 0) {
-  <p>Aucun événement à venir</p>
-  }
-@else {
-
-  <h2>Événements à venir</h2>
-  @for(event of events; track event.id) {
+<div class="text-center">
+  <h1
+    class="text-3xl font-bold bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
+    Rythmopolis
+  </h1>
+  <h2 class="mt-3">
+    Réservez des tickets pour des expériences inoubliables !
+  </h2>
+  <a [routerLink]="['/login']">
+    <button class="btn btn-primary mt-10">
+      Commencer
+    </button>
+  </a>
   <div>
-    <h3>{{ event.name }}</h3>
-    <p>{{ event.date }}</p>
-    <p>{{ event.description }}</p>
-  </div>}
-}
+    @if (events.length === 0) {
+    <p>Aucun événement à venir</p>
+    }
+    @else {
+
+    <h2>Événements à venir</h2>
+    @for(event of events; track event.id) {
+    <div>
+      <h3>{{ event.name }}</h3>
+      <p>{{ event.date }}</p>
+      <p>{{ event.description }}</p>
+    </div>}
+    }
 </div>

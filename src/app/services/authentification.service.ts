@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import {ANONYMOUS_USER, Identite} from "../models/Auth";
-import {BehaviorSubject, catchError, map, Observable, shareReplay, tap, throwError} from "rxjs";
-import {User} from "../models/user";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Router} from "@angular/router";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {environment} from "../../environments/environments";
+import { ANONYMOUS_USER, Identite } from "../models/Auth";
+import { BehaviorSubject, catchError, map, Observable, shareReplay, tap, throwError } from "rxjs";
+import { User } from "../models/user";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Router } from "@angular/router";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { environment } from "../../environments/environments";
 
 
 const httpOptions = {
@@ -26,14 +26,14 @@ export class AuthentificationService {
   isLoggedOut$: Observable<boolean> = this.isLoggedIn$.pipe(map(isLoggedIn => !isLoggedIn));
 
   constructor(private http: HttpClient,
-              private snackbar: MatSnackBar,
-              private router: Router) { }
+    private snackbar: MatSnackBar,
+    private router: Router) { }
 
   login(credential: Identite): Observable<User> {
     return this.http.post<any>(`${environment.apiURL}/login`, credential, httpOptions)
       .pipe(
         map(rep => {
-          const user = {...rep.user, jwtToken: rep.authorisation.token};
+          const user = { ...rep.user, jwtToken: rep.authorisation.token };
           this.userSubject.next(user);
           return user;
         }),
@@ -58,7 +58,7 @@ export class AuthentificationService {
       password: request.password
     }, httpOptions).pipe(
       map(rep => {
-        const user = {...rep.user, jwtToken: rep.authorisation.token};
+        const user = { ...rep.user, jwtToken: rep.authorisation.token };
         this.userSubject.next(user);
         this.snackbar.open(`Bienvenue, ${this.userValue.name}`, 'Close', {
           duration: 2000, horizontalPosition: 'right', verticalPosition: 'top'
@@ -82,10 +82,10 @@ export class AuthentificationService {
     this.http.post<any>(`${environment.apiURL}/logout`, {}, httpOptions)
       .pipe()
       .subscribe(user => {
-          this.snackbar.open(`A bientôt, ${oldUser.name}`, 'Close', {
-            duration: 2000, horizontalPosition: 'right', verticalPosition: 'top'
-          })
-        }
+        this.snackbar.open(`A bientôt, ${oldUser.name}`, 'Close', {
+          duration: 2000, horizontalPosition: 'right', verticalPosition: 'top'
+        })
+      }
       );
     this.userSubject.next(ANONYMOUS_USER);
 
