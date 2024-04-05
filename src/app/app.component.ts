@@ -3,11 +3,12 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { ConnexionComponent } from "./components/connexion/connexion.component";
 import { AuthentificationService } from './services/authentification.service';
+import {ListeClientComponent} from "./components/liste-client/liste-client.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, ConnexionComponent, NgOptimizedImage, RouterLink],
+  imports: [CommonModule, RouterOutlet, ConnexionComponent, NgOptimizedImage, RouterLink, ListeClientComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
