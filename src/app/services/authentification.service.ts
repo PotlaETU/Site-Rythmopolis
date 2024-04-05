@@ -55,6 +55,10 @@ export class AuthentificationService {
     return this.http.post<any>(`${environment.apiURL}/register`, {
       email: request.email,
       name: request.name,
+      surname: request.surname,
+      adresse: request.adresse,
+      codePostal: request.codePostal,
+      ville: request.ville,
       password: request.password
     }, httpOptions).pipe(
       map(rep => {

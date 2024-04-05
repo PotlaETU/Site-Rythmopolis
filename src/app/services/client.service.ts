@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Client} from "../models/client";
-import {map, of} from "rxjs";
+import {map, Observable, of} from "rxjs";
 import {catchError} from "rxjs/operators";
 import {environment} from "../../environments/environments";
 
@@ -24,6 +24,16 @@ export class ClientService {
         console.log('Erreur http : ', err);
         return of([]);
       }),
+    );
+  }
+
+  getClient(id: number): Observable<Client> {
+    const url = `${environment.apiURL}/clients/${id}`;
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    };
+    return this.http.get<{data: Client}>(url, httpOptions).pipe(
+      map(res => res.data)
     );
   }
 }
