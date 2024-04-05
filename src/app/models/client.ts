@@ -1,4 +1,5 @@
 import {User} from "./user";
+import {Reservation} from "./reservation";
 
 export interface Client {
   id: number;
@@ -9,4 +10,5 @@ export interface Client {
   code_postal: string;
   ville: string;
   user: User;
+  reservations : Reservation[]
 }
