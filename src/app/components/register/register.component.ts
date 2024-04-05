@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
-import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {ActivatedRoute, Router} from "@angular/router";
-import {AuthentificationService} from "../../services/authentification.service";
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
+import { AuthentificationService } from "../../services/authentification.service";
+import { catchError, EMPTY } from 'rxjs';
 
 @Component({
   selector: 'app-register',
   standalone: true,
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterLink
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
@@ -19,9 +21,12 @@ export class RegisterComponent {
     name: new FormControl("", [Validators.required]),
   });
 
+  loading = false;
+  error = false;
+
   constructor(private authService: AuthentificationService,
-              private route: ActivatedRoute,
-              private router: Router) {
+    private route: ActivatedRoute,
+    private router: Router) {
   }
 
   get email(): any {
@@ -37,11 +42,22 @@ export class RegisterComponent {
   }
 
   register() {
-    this.authService.register({ email: this.email?.value, name: this.name?.value, password: this.password?.value}).subscribe(res => {
-      if (res.id) {
-        this.router.navigateByUrl('/dashboard')
-      }
-    })
+    this.loading = true;
+    this.authService.register({ email: this.email?.value, name: this.name?.value, password: this.password?.value })
+      .pipe(
+        catchError(err => {
+          this.loading = false;
+          console.error('Erreur inscription:', err);
+          this.error = true;
+          return EMPTY;
+        })
+      )
+      .subscribe(res => {
+        if (res.id) {
+          this.loading = false;
+          this.router.navigateByUrl('/dashboard');
+        }
+      });
   }
 }
 
