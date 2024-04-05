@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { EventService } from '../services/event.service';
-import { Evenement } from '../models/evenement';
-import { Role } from '../models/role';
+import {Component, Injectable, NgModule, OnInit} from '@angular/core';
+import { EventService } from '../../services/event.service';
+import { Evenement } from '../../models/evenement';
+import { Role } from '../../models/role';
 
 @Component({
   selector: 'app-event-list',
+  standalone: true,
   templateUrl: './event-list.component.html',
   styleUrls: ['./event-list.component.css']
 })
 export class EventListComponent implements OnInit {
   events: Evenement[] = [];
   selectedEvent: Evenement | null = null;
-  userRole: Role = Role.ACTIF; // A remplacer par le rôle de l'utilisateur actuel
+  userRole: Role = Role.ACTIF;
 
   constructor(private eventService: EventService) { }
 
