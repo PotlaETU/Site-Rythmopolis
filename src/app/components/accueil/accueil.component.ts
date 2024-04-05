@@ -3,11 +3,12 @@ import { RouterLink } from '@angular/router';
 import {EventService} from "../../services/event.service";
 import {Evenement} from "../../models/evenement";
 import {MessageService} from "../../services/message.service";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-accueil',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, NgIf],
   templateUrl: './accueil.component.html',
   styleUrl: './accueil.component.css'
 })

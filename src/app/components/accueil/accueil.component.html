@@ -12,14 +12,16 @@
     </button>
   </a>
 </div>
-@if(message){
-<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+<div *ngIf="message" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
   <strong class="font-bold">Aie !</strong>
   <span class="block sm:inline ml-2">{{message}}</span>
+</div>
+
+
 <!--  <div>-->
 <!--    @if (events.length === 0) -->
 <!--    <p>Aucun événement à venir</p>-->
-<!--    }-->
+<!--    -->
 <!--    @else {-->
 
 <!--    <h2>Événements à venir</h2>-->
@@ -31,4 +33,4 @@
 <!--    </div>}-->
 <!--    }-->
 <!--</div>-->
-}
+
