@@ -28,10 +28,10 @@ export class RegisterComponent {
   form: FormGroup = new FormGroup({
     email: new FormControl("", [Validators.required, Validators.email]),
     password: new FormControl("", [Validators.required]),
-    name: new FormControl("", [Validators.required]),
-    surname: new FormControl("", [Validators.required]),
+    nom: new FormControl("", [Validators.required]),
+    prenom: new FormControl("", [Validators.required]),
     adresse: new FormControl("", [Validators.required]),
-    codePostal: new FormControl("", [Validators.required]),
+    code_postal: new FormControl("", [Validators.required]),
     passwordverif: new FormControl("", [Validators.required]),
     ville: new FormControl("", [Validators.required])
   });
@@ -46,11 +46,14 @@ export class RegisterComponent {
   adresseAPI: AdresseService = inject(AdresseService)
 
   cp: string = '';
+  errorPassword: boolean = false;
 
   constructor(private authService: AuthentificationService,
               private route: ActivatedRoute,
               private router: Router,
               private http: HttpClient) {
+    this.errorPassword = false;
+
   }
 
   get email(): any {
@@ -66,11 +69,11 @@ export class RegisterComponent {
   }
 
   get name(): any {
-    return this.form.get('name');
+    return this.form.get('nom');
   }
 
   get surname(): any {
-    return this.form.get('surname');
+    return this.form.get('prenom');
   }
 
   get passwordverif(): any {
@@ -82,15 +85,37 @@ export class RegisterComponent {
   }
 
   get codePostal(): any {
-    return this.form.get('codePostal')
+    return this.form.get('code_postal')
   }
 
   register() {
     this.loading = true;
-    this.authService.register({
-      email: this.email?.value, name: this.name?.value, password: this.password?.value, adresse: this.adresse?.value,
-      ville: this.ville?.value, codePostal: this.codePostal?.value, surname: this.surname?.value
+    console.log(this.password?.value)
+    if (this.password?.value != this.passwordverif?.value){
+      this.errorPassword = true;
+      this.loading = false;
+      return;
+    }
+    console.log({
+      nom: this.name?.value,
+      prenom: this.surname?.value,
+      adresse: this.adresse?.value,
+      code_postal: this.codePostal?.value,
+      ville: this.ville?.value,
+      email: this.email?.value,
+      password: this.password?.value
     })
+    this.authService.register(
+      {
+        nom: this.name?.value,
+        prenom: this.surname?.value,
+        adresse: this.adresse?.value,
+        code_postal: this.codePostal?.value,
+        ville: this.ville?.value,
+        email: this.email?.value,
+        password: this.password?.value
+            }
+    )
       .pipe(
         catchError(err => {
           this.loading = false;
@@ -102,7 +127,7 @@ export class RegisterComponent {
       .subscribe(res => {
         if (res.id) {
           this.loading = false;
-          this.router.navigateByUrl('/dashboard');
+          this.router.navigateByUrl('/');
         }
       });
   }
@@ -126,10 +151,10 @@ export class RegisterComponent {
           this.adresses.push(ad)
           let option = document.createElement('option')
           option.setAttribute('value', ad.ville)
-          option.addEventListener('click', ev => {
-            let optionSelect = ev.target as HTMLOptionElement
-            console.log(optionSelect.getAttribute('value'))
-          })
+          // option.addEventListener('click', ev => {
+          //   let optionSelect = ev.target as HTMLOptionElement
+          //   console.log(optionSelect.getAttribute('value'))
+          // })
           datalist.appendChild(option)
           document.getElementById("adresse_sugg")?.appendChild(option)
         })
@@ -138,6 +163,7 @@ export class RegisterComponent {
   }
 
   onSelected(codePostalClick: string) {
+    console.log(this.adresses)
     this.adresses.forEach(a=>{
       if(a.ville === codePostalClick){
         this.cp = a.code_postal
