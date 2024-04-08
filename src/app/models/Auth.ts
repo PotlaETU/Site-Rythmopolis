@@ -1,4 +1,5 @@
 import {User} from "./user";
+import {Role} from "./role";
 
 export interface Identite {
   email: string;
@@ -28,6 +29,6 @@ export const ANONYMOUS_USER: User = <User>{
   id: 0,
   name: '',
   email: '',
-  role: 'NON_ACTIF',
+  role: Role.NON_ACTIF,
   token: ''
 };

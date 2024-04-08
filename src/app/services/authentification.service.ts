@@ -35,7 +35,7 @@ export class AuthentificationService {
     return this.http.post<any>(`${environment.apiURL}/login`, credential, httpOptions)
       .pipe(
         map(rep => {
-          const user = {...rep.user, role: rep.user.role.toUpperCase() in Role, token: rep.authorization.token};
+          const user = {...rep.user, role: rep.user.role, token: rep.authorization.token};
           this.userSubject.next(user);
           return user;
         }),

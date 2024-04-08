@@ -3,7 +3,7 @@ import {ClientService} from "../../services/client.service";
 import {map, Observable} from "rxjs";
 import {Client} from "../../models/client";
 import {AsyncPipe} from "@angular/common";
-import {GuardClients} from "../../services/acces-control.guard.ts.service";
+import {AuthGuard} from "../../services/acces-control.guard.ts.service";
 
 @Component({
   selector: 'app-liste-client',
