@@ -6,8 +6,8 @@ import { Role } from '../../models/role';
 @Component({
   selector: 'app-event-list',
   standalone: true,
-  templateUrl: './evenements.component.html',
-  styleUrl: './evenements.component.css'
+  templateUrl: './liste-event.component.html',
+  styleUrl: './liste-event.component.css'
 })
 export class EventListComponent implements OnInit {
   events: Evenement[] = [];
