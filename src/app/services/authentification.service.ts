@@ -29,6 +29,8 @@ export class AuthentificationService {
   constructor(private http: HttpClient,
               private snackbar: MatSnackBar,
               private router: Router) {
+      this.userSubject.next(JSON.parse(localStorage.getItem('user') || '{}'));
+      this.user$ = this.userSubject.asObservable();
   }
 
   login(credential: Identite): Observable<User> {
@@ -37,6 +39,7 @@ export class AuthentificationService {
         map(rep => {
           const user = {...rep.user, role: rep.user.role, token: rep.authorization.token};
           this.userSubject.next(user);
+          localStorage.setItem('user', JSON.stringify(user));
           return user;
         }),
         shareReplay(),
@@ -70,6 +73,7 @@ export class AuthentificationService {
         this.snackbar.open(`Bienvenue, ${this.userValue.name}`, 'Close', {
           duration: 2000, horizontalPosition: 'right', verticalPosition: 'top'
         })
+        localStorage.setItem('user', JSON.stringify(user));
         return user;
       }),
       shareReplay(),
@@ -95,7 +99,7 @@ export class AuthentificationService {
         }
       );
     this.userSubject.next(ANONYMOUS_USER);
-
+    localStorage.removeItem('user');
     this.router.navigate(['/']);
   }
 
