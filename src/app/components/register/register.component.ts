@@ -90,7 +90,6 @@ export class RegisterComponent {
 
   register() {
     this.loading = true;
-    console.log(this.password?.value)
     if (this.password?.value != this.passwordverif?.value) {
       this.errorPassword = true;
       this.loading = false;
