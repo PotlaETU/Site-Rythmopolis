@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { AuthentificationService } from "../../services/authentification.service";
@@ -9,6 +9,7 @@ import { MatButton } from "@angular/material/button";
 import { catchError } from 'rxjs/operators';
 import { EMPTY } from 'rxjs';
 import {NgIf} from "@angular/common";
+import { MessageService } from '../../services/message.service';
 
 @Component({
   selector: 'app-connexion',
@@ -36,6 +37,8 @@ export class ConnexionComponent {
 
   loading = false;
   error = false;
+
+  message:MessageService = inject(MessageService);
 
   constructor(private authService: AuthentificationService,
     private route: ActivatedRoute,
