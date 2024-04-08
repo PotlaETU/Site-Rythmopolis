@@ -6,8 +6,12 @@ export interface Identite {
 }
 
 export interface RegisterRequest {
+  nom: string;
+  prenom:string;
+  adresse:string;
+  code_postal:string;
+  ville: string;
   email: string;
-  name: string;
   password: string;
 }
 

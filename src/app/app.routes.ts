@@ -17,12 +17,11 @@ export const routes: Routes = [
   {path: "register", component: RegisterComponent},
   {path: "about", component: AProposComponent},
   {path: "contact", component: ContactComponent},
-  {path: "clients", component: ListeClientComponent},
-  {path: "clients/:{id}", component: DetailClientComponent},
+  // {path: "clients", component: ListeClientComponent},
+  // {path: "clients/:{id}", component: DetailClientComponent},
   {path: "liste-event", component: EventListComponent},
   {path: "clients/:{id}/edit", component: ClientEditComponent},
-
-  // { path: "clients/:{id}", component: ListeClientComponent, canActivate: [GuardClients]},
-  // { path: "clients", component: ListeClientComponent, canActivate: [GuardClients]},
+  { path: "clients/:{id}", component: ListeClientComponent, canActivate: [GuardClients]},
+  { path: "clients", component: ListeClientComponent, canActivate: [GuardClients]},
   {path: "**", component: PageNotFoundComponent}
 ];
