@@ -5,13 +5,14 @@ import { Role } from '../../models/role';
 
 @Component({
   selector: 'app-event-list',
-  templateUrl: './event-list.component.html',
-  styleUrls: ['./event-list.component.css']
+  standalone: true,
+  templateUrl: './evenements.component.html',
+  styleUrl: './evenements.component.css'
 })
 export class EventListComponent implements OnInit {
   events: Evenement[] = [];
   selectedEvent: Evenement | null = null;
-  userRole: Role = Role.ACTIF; // A remplacer par le rôle de l'utilisateur actuel
+  userRole: Role = Role.ACTIF;
 
   constructor(private eventService: EventService) { }
 
