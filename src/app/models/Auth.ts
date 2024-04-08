@@ -24,7 +24,6 @@ export const ANONYMOUS_USER: User = <User>{
   id: 0,
   name: '',
   email: '',
-  password: '',
   role: 'NON_ACTIF',
-  jwtToken: ''
+  token: ''
 };

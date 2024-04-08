@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { environment } from "../../environments/environments";
+import {Role} from "../models/role";
 
 
 const httpOptions = {
@@ -33,7 +34,7 @@ export class AuthentificationService {
     return this.http.post<any>(`${environment.apiURL}/login`, credential, httpOptions)
       .pipe(
         map(rep => {
-          const user = { ...rep.user, jwtToken: rep.authorisation.token };
+          const user = {...rep.user,role: rep.user.role.toUpperCase() in Role, token: rep.authorization.token};
           this.userSubject.next(user);
           return user;
         }),
@@ -50,6 +51,8 @@ export class AuthentificationService {
         })
       );
   }
+
+
 
   register(request: any): Observable<User> {
     return this.http.post<any>(`${environment.apiURL}/register`, {
@@ -97,7 +100,7 @@ export class AuthentificationService {
   }
 
   getProfile(): Observable<User> {
-    return this.http.get<any>(`${environment.apiURL}/me`, httpOptions)
+    return this.http.get<any>(`${environment.apiURL}/profil`, httpOptions)
       .pipe(
         map(rep => rep.user),
         catchError(err => throwError(err))
