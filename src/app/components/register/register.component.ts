@@ -1,13 +1,13 @@
-import { Component, inject, input } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
-import { ActivatedRoute, Router, RouterLink } from "@angular/router";
-import { AuthentificationService } from "../../services/authentification.service";
-import { catchError, EMPTY } from 'rxjs';
-import { MatError } from "@angular/material/form-field";
-import { HttpClient } from "@angular/common/http";
-import { AdresseService } from "../../adresse.service";
-import { AsyncPipe } from "@angular/common";
-import { getRootDirs } from "@angular/compiler-cli/src/ngtsc/util/src/typescript";
+import {Component, inject, input} from '@angular/core';
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
+import {AuthentificationService} from "../../services/authentification.service";
+import {catchError, EMPTY} from 'rxjs';
+import {MatError} from "@angular/material/form-field";
+import {HttpClient} from "@angular/common/http";
+import {AddressSuggestion, AdresseService} from "../../services/adresse.service";
+import {AsyncPipe, NgForOf} from "@angular/common";
+import {getRootDirs} from "@angular/compiler-cli/src/ngtsc/util/src/typescript";
 
 @Component({
   selector: 'app-register',
@@ -16,7 +16,8 @@ import { getRootDirs } from "@angular/compiler-cli/src/ngtsc/util/src/typescript
     ReactiveFormsModule,
     RouterLink,
     MatError,
-    AsyncPipe
+    AsyncPipe,
+    NgForOf
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
@@ -36,12 +37,14 @@ export class RegisterComponent {
   loading = false;
   error = false;
 
+  adresses: AddressSuggestion[] = [];
+
   adresseAPI: AdresseService = inject(AdresseService)
 
   constructor(private authService: AuthentificationService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private http: HttpClient) {
+              private route: ActivatedRoute,
+              private router: Router,
+              private http: HttpClient) {
   }
 
   get email(): any {
@@ -100,6 +103,9 @@ export class RegisterComponent {
 
   /*
   * Test de suggestion d'adresse lorsque l'utilisateur tape dans l'input Adresse*/
+
+  /*
+    * Test de suggestion d'adresse lorsque l'utilisateur tape dans l'input Adresse*/
   getAddresses() {
     // document.getElementById("addresse_list")?.removeChild(option)
     const input: HTMLInputElement = document.getElementById('adresse') as HTMLInputElement
@@ -118,5 +124,6 @@ export class RegisterComponent {
       })
     }
   }
+
 }
 

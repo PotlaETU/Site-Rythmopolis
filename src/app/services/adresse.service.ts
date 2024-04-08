@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {environment} from "../environments/environments";
+import {environment} from "../../environments/environments";
 import {HttpClient} from "@angular/common/http";
 import {FormGroup} from "@angular/forms";
 
 
-interface AddressSuggestion {
+export interface AddressSuggestion {
   id: number
   ville: string;
   code_postal: string;
