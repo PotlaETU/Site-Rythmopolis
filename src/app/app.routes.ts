@@ -10,6 +10,7 @@ import {GuardClients} from "./services/acces-control.guard.ts.service";
 import {DetailClientComponent} from "./components/detail-client/detail-client.component";
 import {EventListComponent} from "./components/evenements/evenements.component";
 import {ClientEditComponent} from "./components/client-edit/client-edit.component";
+import {DetailEventComponent} from "./components/detail-event/detail-event.component";
 
 export const routes: Routes = [
   {path: "", pathMatch: "full", component: AccueilComponent},
@@ -20,6 +21,7 @@ export const routes: Routes = [
   {path: "clients", component: ListeClientComponent},
   {path: "clients/:{id}", component: DetailClientComponent},
   {path: "evenements", component: EventListComponent},
+  {path: "evenements/:{id}", component: DetailEventComponent},
   {path: "clients/:{id}/edit", component: ClientEditComponent},
 
   // { path: "clients/:{id}", component: ListeClientComponent, canActivate: [GuardClients]},

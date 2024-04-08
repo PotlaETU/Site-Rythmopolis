@@ -6,5 +6,5 @@ export interface Evenement {
   titre: Type;
   description: string;
   date_event: Date;
-  lieu_id: Lieu;
+  lieu: Lieu;
 }
