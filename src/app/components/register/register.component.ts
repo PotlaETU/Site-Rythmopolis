@@ -96,26 +96,7 @@ export class RegisterComponent {
       this.loading = false;
       return;
     }
-    console.log({
-      nom: this.name?.value,
-      prenom: this.surname?.value,
-      adresse: this.adresse?.value,
-      code_postal: this.codePostal?.value,
-      ville: this.ville?.value,
-      email: this.email?.value,
-      password: this.password?.value
-    })
-    this.authService.register(
-      {
-        nom: this.name?.value,
-        prenom: this.surname?.value,
-        adresse: this.adresse?.value,
-        code_postal: this.codePostal?.value,
-        ville: this.ville?.value,
-        email: this.email?.value,
-        password: this.password?.value
-            }
-    )
+    this.authService.register(this.form.value)
       .pipe(
         catchError(err => {
           this.loading = false;

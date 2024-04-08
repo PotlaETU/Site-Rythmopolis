@@ -8,26 +8,27 @@ import {Role} from "../models/role";
 @Injectable({
   providedIn: 'root'
 })
-class PermissionsService {
+export class AuthGuard {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService:AuthentificationService) {}
 
-  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    const authService = inject(AuthentificationService);
-    const user = authService.userValue
+  canActivate(): boolean {
+    const user = this.authService.userValue
     const message: MessageService = inject(MessageService);
     if (user.role == Role.ADMIN || user.role == Role.GESTIONNAIRE) {
       return true;
     }
-    message.setMessage('Vous n\'avez pas les droits pour accéder à cette page !');
-    this.router.navigate(['/']);
-    return false;
+    else{
+      message.setMessage('Vous n\'avez pas les droits pour accéder à cette page !');
+      this.router.navigateByUrl('/login');
+      return false;
+    }
   }
 }
 
-export const AuthGuard: CanActivateFn = (next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean => {
-  return inject(PermissionsService).canActivate(next, state);
-}
+// export const AuthGuard: CanActivateFn = (next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean => {
+//   return inject(PermissionsService).canActivate();
+// }
 
 // export function GuardClients(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 //   const router = inject(Router);
