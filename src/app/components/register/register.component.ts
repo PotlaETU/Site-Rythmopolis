@@ -1,13 +1,13 @@
-import {Component, inject, input} from '@angular/core';
-import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {ActivatedRoute, Router, RouterLink} from "@angular/router";
-import {AuthentificationService} from "../../services/authentification.service";
-import {catchError, EMPTY} from 'rxjs';
-import {MatError} from "@angular/material/form-field";
-import {HttpClient} from "@angular/common/http";
-import {AdresseService} from "../../adresse.service";
-import {AsyncPipe} from "@angular/common";
-import {getRootDirs} from "@angular/compiler-cli/src/ngtsc/util/src/typescript";
+import { Component, inject, input } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
+import { AuthentificationService } from "../../services/authentification.service";
+import { catchError, EMPTY } from 'rxjs';
+import { MatError } from "@angular/material/form-field";
+import { HttpClient } from "@angular/common/http";
+import { AdresseService } from "../../adresse.service";
+import { AsyncPipe } from "@angular/common";
+import { getRootDirs } from "@angular/compiler-cli/src/ngtsc/util/src/typescript";
 
 @Component({
   selector: 'app-register',
@@ -39,9 +39,9 @@ export class RegisterComponent {
   adresseAPI: AdresseService = inject(AdresseService)
 
   constructor(private authService: AuthentificationService,
-              private route: ActivatedRoute,
-              private router: Router,
-              private http: HttpClient) {
+    private route: ActivatedRoute,
+    private router: Router,
+    private http: HttpClient) {
   }
 
   get email(): any {
@@ -103,17 +103,20 @@ export class RegisterComponent {
   getAddresses() {
     // document.getElementById("addresse_list")?.removeChild(option)
     const input: HTMLInputElement = document.getElementById('adresse') as HTMLInputElement
-    this.adresseAPI.onSearchChange(input.value).then(r => {
-      document.getElementById('adresse_sugg')?.remove()
-      let datalist = document.createElement('datalist')
-      datalist.setAttribute('id', 'adresse_sugg')
-      r?.forEach(ad => {
-        let option = document.createElement('option')
-        option.setAttribute('id', '')
-        option.value = ad.ville
-        document.getElementById("adresse_list")?.appendChild(option)
+    const datalist: HTMLDataListElement = document.getElementById('adresse_sugg') as HTMLDataListElement
+    if(input.value.length>=3){
+      this.adresseAPI.onSearchChange(input.value).then(r => {
+        datalist.childNodes.forEach(child => {
+          datalist.removeChild(child)
+        })
+        r?.forEach(ad => {
+          let option = document.createElement('option')
+          option.setAttribute('value', ad.ville)
+          datalist.appendChild(option)
+          document.getElementById("adresse_sugg")?.appendChild(option)
+        })
       })
-    })
+    }
   }
 }
 
