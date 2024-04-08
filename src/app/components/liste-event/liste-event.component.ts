@@ -12,7 +12,7 @@ import { Role } from '../../models/role';
 export class EventListComponent implements OnInit {
   events: Evenement[] = [];
   selectedEvent: Evenement | null = null;
-  userRole: Role = Role.ACTIF;
+  // userRole: Role = Role.ACTIF;
 
   constructor(private eventService: EventService) { }
 
@@ -28,11 +28,11 @@ export class EventListComponent implements OnInit {
     this.selectedEvent = event;
   }
 
-  canEdit(): boolean {
-    return this.userRole === Role.GESTIONNAIRE || this.userRole === Role.ADMIN;
-  }
+  // canEdit(): boolean {
+  //   return this.userRole === Role.GESTIONNAIRE || this.userRole === Role.ADMIN;
+  // }
 
-  canDelete(): boolean {
-    return this.userRole === Role.ADMIN;
-  }
+  // canDelete(): boolean {
+  //   return this.userRole === Role.ADMIN;
+  // }
 }
