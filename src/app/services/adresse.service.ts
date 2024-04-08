@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {environment} from "../environments/environments";
+import {environment} from "../../environments/environments";
 import {HttpClient} from "@angular/common/http";
 import {FormGroup} from "@angular/forms";
 
 
-interface AddressSuggestion {
+export interface AddressSuggestion {
   id: number
   ville: string;
   code_postal: string;
@@ -40,7 +40,7 @@ export class AdresseService {
           code_postal: d['features'][i]['properties']['postcode']
         });
       }
-      console.log(this.suggestions)
+      // console.log(this.suggestions)
     })
     return this.suggestions;
   }

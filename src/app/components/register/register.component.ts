@@ -1,13 +1,14 @@
-import {Component, inject, input} from '@angular/core';
-import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {Component, ElementRef, inject, input, ViewChild} from '@angular/core';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {AuthentificationService} from "../../services/authentification.service";
 import {catchError, EMPTY} from 'rxjs';
 import {MatError} from "@angular/material/form-field";
 import {HttpClient} from "@angular/common/http";
-import {AdresseService} from "../../adresse.service";
-import {AsyncPipe} from "@angular/common";
+import {AddressSuggestion, AdresseService} from "../../services/adresse.service";
+import {AsyncPipe, NgForOf} from "@angular/common";
 import {getRootDirs} from "@angular/compiler-cli/src/ngtsc/util/src/typescript";
+import {data} from "autoprefixer";
 
 @Component({
   selector: 'app-register',
@@ -16,7 +17,9 @@ import {getRootDirs} from "@angular/compiler-cli/src/ngtsc/util/src/typescript";
     ReactiveFormsModule,
     RouterLink,
     MatError,
-    AsyncPipe
+    AsyncPipe,
+    NgForOf,
+    FormsModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
@@ -36,7 +39,13 @@ export class RegisterComponent {
   loading = false;
   error = false;
 
+  adresses: AddressSuggestion[] = [];
+
+  code_postal:string = '';
+
   adresseAPI: AdresseService = inject(AdresseService)
+
+  cp: string = '';
 
   constructor(private authService: AuthentificationService,
               private route: ActivatedRoute,
@@ -100,20 +109,41 @@ export class RegisterComponent {
 
   /*
   * Test de suggestion d'adresse lorsque l'utilisateur tape dans l'input Adresse*/
+
+  /*
+    * Test de suggestion d'adresse lorsque l'utilisateur tape dans l'input Adresse*/
   getAddresses() {
     // document.getElementById("addresse_list")?.removeChild(option)
-    const input: HTMLInputElement = document.getElementById('adresse') as HTMLInputElement
-    this.adresseAPI.onSearchChange(input.value).then(r => {
-      document.getElementById('adresse_sugg')?.remove()
-      let datalist = document.createElement('datalist')
-      datalist.setAttribute('id', 'adresse_sugg')
-      r?.forEach(ad => {
-        let option = document.createElement('option')
-        option.setAttribute('id', '')
-        option.value = ad.ville
-        document.getElementById("adresse_list")?.appendChild(option)
+    const input: HTMLInputElement = document.getElementById('ville') as HTMLInputElement
+    const datalist: HTMLDataListElement = document.getElementById('adresse_sugg') as HTMLDataListElement
+    this.adresses = []
+    if (input.value.length >= 3) {
+      this.adresseAPI.onSearchChange(input.value).then(r => {
+        datalist.childNodes.forEach(child => {
+          datalist.removeChild(child)
+        })
+        r?.forEach(ad => {
+          this.adresses.push(ad)
+          let option = document.createElement('option')
+          option.setAttribute('value', ad.ville)
+          option.addEventListener('click', ev => {
+            let optionSelect = ev.target as HTMLOptionElement
+            console.log(optionSelect.getAttribute('value'))
+          })
+          datalist.appendChild(option)
+          document.getElementById("adresse_sugg")?.appendChild(option)
+        })
       })
+    }
+  }
+
+  onSelected(codePostalClick: string) {
+    this.adresses.forEach(a=>{
+      if(a.ville === codePostalClick){
+        this.cp = a.code_postal
+      }
     })
+    this.codePostal.setValue(this.cp)
   }
 }
 

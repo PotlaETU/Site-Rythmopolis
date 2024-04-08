@@ -5,7 +5,7 @@
   </div>
 
   <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-    <form [formGroup]="form" (ngSubmit)="register()" class="space-y-6 group" action="#" method="POST" novalidate>
+    <form [formGroup]="form" (ngSubmit)="register()" class="space-y-6" action="#" method="POST" novalidate>
       <div>
         <label for="name" class="block text-sm font-medium leading-6">Nom*
           <div class="mt-2">
@@ -40,13 +40,13 @@
       </div>
 
       <div>
-        <label for="ville" class="block text-sm font-medium leading-6">Ville*
+        <label for="adresse" class="block text-sm font-medium leading-6">Adresse*
           <div class="mt-2">
-            <input formControlName="ville"
+            <input formControlName="adresse"
                    placeholder=" "
-                   id="ville" name="ville"
+                   id="adresse" name="adresse"
                    type="text"
-                   autocomplete="ville"
+                   autocomplete="adresse"
                    required
                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer">
           </div>
@@ -58,16 +58,24 @@
       </div>
 
       <div>
-        <label for="adresse" class="block text-sm font-medium leading-6">Adresse*
+        <label for="ville" class="block text-sm font-medium leading-6">Ville*
           <div class="mt-2">
-            <input formControlName="adresse"
+            <input formControlName="ville"
                    placeholder=" "
-                   id="adresse" name="adresse"
+                   id="ville" name="ville"
                    type="text"
-                   autocomplete="adresse"
+                   autocomplete="ville"
+                   (input)="getAddresses()"
+                   list="adresse_sugg"
                    required
+                   [(ngModel)]='code_postal'
+                   (change)="onSelected(code_postal)"
                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer">
-               <!--(input)="getAddresses()"-->
+            <datalist id="adresse_sugg">
+              @for(adresse of adresses; track adresse.id){
+              <option [value]="adresse">{{adresse.code_postal}}</option>
+              }
+            </datalist>
           </div>
           <mat-error
             class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
@@ -82,7 +90,7 @@
             <input formControlName="codePostal"
                    placeholder=" "
                    id="cp" name="cp"
-                   type="number"
+                   type="text"
                    autocomplete="cp"
                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer">
           </div>
@@ -153,7 +161,7 @@
 
       <div>
         <button type="submit"
-                class="btn btn-primary w-full group-invalid:pointer-events-none group-invalid:opacity-30">
+                class="btn btn-primary w-full">
           @if (loading) {
           <span class="loading loading-spinner mr-2"></span>
           }
