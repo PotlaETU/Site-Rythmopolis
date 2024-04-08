@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { EventService } from '../services/event.service';
-import { Evenement } from '../models/evenement';
-import { Role } from '../models/role';
+import { EventService } from '../../services/event.service';
+import { Evenement } from '../../models/evenement';
+import { Role } from '../../models/role';
 
 @Component({
   selector: 'app-event-list',
