@@ -24,6 +24,19 @@ export class AuthGuard {
       return false;
     }
   }
+
+  canViewProfil(): boolean {
+    const user = this.authService.userValue
+    const message: MessageService = inject(MessageService);
+    if (user && user.role != Role.NON_ACTIF) {
+      return true;
+    }
+    else{
+      message.setMessage('Connectez vous pour voir votre profil !');
+      this.router.navigateByUrl('/login');
+      return false;
+    }
+  }
 }
 
 // export const AuthGuard: CanActivateFn = (next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean => {

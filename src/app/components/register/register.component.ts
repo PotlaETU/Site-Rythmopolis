@@ -1,14 +1,14 @@
-import {Component, ElementRef, inject, input, ViewChild} from '@angular/core';
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {ActivatedRoute, Router, RouterLink} from "@angular/router";
-import {AuthentificationService} from "../../services/authentification.service";
-import {catchError, EMPTY} from 'rxjs';
-import {MatError} from "@angular/material/form-field";
-import {HttpClient} from "@angular/common/http";
-import {AddressSuggestion, AdresseService} from "../../services/adresse.service";
-import {AsyncPipe, NgForOf} from "@angular/common";
-import {getRootDirs} from "@angular/compiler-cli/src/ngtsc/util/src/typescript";
-import {data} from "autoprefixer";
+import { Component, ElementRef, inject, input, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
+import { AuthentificationService } from "../../services/authentification.service";
+import { catchError, EMPTY } from 'rxjs';
+import { MatError } from "@angular/material/form-field";
+import { HttpClient } from "@angular/common/http";
+import { AddressSuggestion, AdresseService } from "../../services/adresse.service";
+import { AsyncPipe, NgForOf } from "@angular/common";
+import { getRootDirs } from "@angular/compiler-cli/src/ngtsc/util/src/typescript";
+import { data } from "autoprefixer";
 
 @Component({
   selector: 'app-register',
@@ -41,7 +41,7 @@ export class RegisterComponent {
 
   adresses: AddressSuggestion[] = [];
 
-  code_postal:string = '';
+  code_postal: string = '';
 
   adresseAPI: AdresseService = inject(AdresseService)
 
@@ -49,11 +49,11 @@ export class RegisterComponent {
   errorPassword: boolean = false;
 
   constructor(private authService: AuthentificationService,
-              private route: ActivatedRoute,
-              private router: Router,
-              private http: HttpClient) {
+    private route: ActivatedRoute,
+    private router: Router,
+    private http: HttpClient) {
     this.errorPassword = false;
-
+    this.adresses = [];
   }
 
   get email(): any {
@@ -90,8 +90,7 @@ export class RegisterComponent {
 
   register() {
     this.loading = true;
-    console.log(this.password?.value)
-    if (this.password?.value != this.passwordverif?.value){
+    if (this.password?.value != this.passwordverif?.value) {
       this.errorPassword = true;
       this.loading = false;
       return;
@@ -122,7 +121,7 @@ export class RegisterComponent {
     // document.getElementById("addresse_list")?.removeChild(option)
     const input: HTMLInputElement = document.getElementById('ville') as HTMLInputElement
     const datalist: HTMLDataListElement = document.getElementById('adresse_sugg') as HTMLDataListElement
-    this.adresses = []
+    // this.adresses = []
     if (input.value.length >= 3) {
       this.adresseAPI.onSearchChange(input.value).then(r => {
         datalist.childNodes.forEach(child => {
@@ -143,14 +142,18 @@ export class RegisterComponent {
     }
   }
 
-  onSelected(codePostalClick: string) {
-    console.log(this.adresses)
-    this.adresses.forEach(a=>{
-      if(a.ville === codePostalClick){
-        this.cp = a.code_postal
+  /**
+   * Fonction qui permet de remplir le code postal lorsque l'utilisateur clique sur une suggestion d'adresse (grâce à l'api du gouvernement)
+   * @param vileClick string : la ville sur laquelle l'utilisateur a cliqué
+   */
+  onSelected(vileClick: string) {
+    this.adresses.forEach(ad => {
+      if (ad.ville == vileClick) {
+        console.log(ad.code_postal);
+        this.codePostal.setValue(ad.code_postal);
       }
     })
-    this.codePostal.setValue(this.cp)
   }
+
 }
 

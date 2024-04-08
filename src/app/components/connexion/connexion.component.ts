@@ -71,6 +71,7 @@ export class ConnexionComponent {
         if (res.id) {
           this.loading = false;
           this.router.navigateByUrl('/');
+          localStorage.setItem('user', JSON.stringify(res));
         }
       });
   }

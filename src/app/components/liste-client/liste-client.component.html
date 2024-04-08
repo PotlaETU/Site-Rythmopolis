@@ -1,8 +1,8 @@
 <h1 class="font-bold text-center text-5xl">La liste des clients</h1>
 <div class="flex w-full p-7">
-  <button class="btn grid h-20 flex-grow card bg-base-300 rounded-box place-items-center" (click)="clients(1)">Tri par Nom</button>
+  <button class="btn btn-primary grid h-20 flex-grow card rounded-box place-items-center" (click)="clients(1)">Tri par Nom</button>
   <div class="divider divider-horizontal"></div>
-  <button class="btn grid h-20 flex-grow card bg-base-300 rounded-box place-items-center" (click)="clients(2)">content</button>
+  <button class="btn btn-primary grid h-20 flex-grow card rounded-box place-items-center" (click)="clients(2)">Tri par ville</button>
 </div>
 <ul role="list" class="divide-y divide-gray-100 p-8">
   @for(client of clients$ | async; track client.id){

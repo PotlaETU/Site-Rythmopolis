@@ -24,44 +24,50 @@
   <h2 class="mt-3">
     Bienvenue, {{authServ.userValue.name}} ! Tu es le chef ici !
   </h2>
-  <a [routerLink]="['/events']">
-    <button class="btn btn-primary mt-10 text-lg">
-      Voir les événements
-    </button>
-  </a>
-  <a [routerLink]="['/clients']">
-    <button class="btn btn-primary mt-10 text-lg">
-      Voir les clients
-    </button>
-  </a>
+  <div class="space-x-10">
+      <a [routerLink]="['/events']">
+      <button class="btn btn-primary mt-10 text-lg">
+        Voir les événements
+      </button>
+    </a>
+    <a [routerLink]="['/clients']">
+      <button class="btn btn-primary mt-10 text-lg w-52">
+        Voir les clients
+      </button>
+    </a>
+  </div>
 }@else if (isLogged() && authServ.userValue.role === 'gestionnaire') {
   <h2 class="mt-3">
     Bienvenue, {{authServ.userValue.name}} ! gestionnaire
   </h2>
-  <a [routerLink]="['/events']">
-    <button class="btn btn-primary mt-10 text-lg">
-      Voir les événements
-    </button>
-  </a>
-  <a [routerLink]="['/tickets']">
-    <button class="btn btn-primary mt-10 text-lg">
-      Voir les tickets
-    </button>
-  </a>
+  <div class="space-x-10">
+      <a [routerLink]="['/events']">
+      <button class="btn btn-primary mt-10 text-lg">
+        Voir les événements
+      </button>
+    </a>
+    <a [routerLink]="['/tickets']">
+      <button class="btn btn-primary mt-10 text-lg w-40">
+        Voir les tickets
+      </button>
+    </a>
+  </div>
 } @else {
-  <h2 class="mt-3">
+  <h2 class="space-x-10">
     Bienvenue, {{authServ.userValue.name}} ! un NPC
   </h2>
-  <a [routerLink]="['/events']">
+  <div class="gap-3">
+    <a [routerLink]="['/events']">
     <button class="btn btn-primary mt-10 text-lg">
       Voir les événements
     </button>
   </a>
   <a [routerLink]="['/tickets']">
-    <button class="btn btn-primary mt-10 text-lg">
+    <button class="btn btn-primary mt-10 text-lg w-40">
       Voir mes tickets
     </button>
   </a>
+  </div>
 }
 </div>
 

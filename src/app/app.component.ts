@@ -16,7 +16,6 @@ export class AppComponent {
   image = 'assets/avatar.png'
   connection: string = 'Se connecter';
   logo: string = 'assets/logo.png';
-  pseudo: string = '';
 
   authService: AuthentificationService = inject(AuthentificationService);
 
@@ -31,6 +30,5 @@ export class AppComponent {
   }
 
   constructor() {
-    this.pseudo = this.authService.userValue.name;
   }
 }
