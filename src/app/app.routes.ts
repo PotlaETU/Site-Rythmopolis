@@ -8,7 +8,7 @@ import {ContactComponent} from "./components/contact/contact.component";
 import {ListeClientComponent} from "./components/liste-client/liste-client.component";
 import {GuardClients} from "./services/acces-control.guard.ts.service";
 import {DetailClientComponent} from "./components/detail-client/detail-client.component";
-import {EventListComponent} from "./components/evenements/evenements.component";
+import {EventListComponent} from "./components/liste-event/liste-event.component";
 import {ClientEditComponent} from "./components/client-edit/client-edit.component";
 
 export const routes: Routes = [
@@ -19,7 +19,7 @@ export const routes: Routes = [
   {path: "contact", component: ContactComponent},
   {path: "clients", component: ListeClientComponent},
   {path: "clients/:{id}", component: DetailClientComponent},
-  {path: "evenements", component: EventListComponent},
+  {path: "liste-event", component: EventListComponent},
   {path: "clients/:{id}/edit", component: ClientEditComponent},
 
   // { path: "clients/:{id}", component: ListeClientComponent, canActivate: [GuardClients]},
