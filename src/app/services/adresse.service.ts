@@ -40,7 +40,7 @@ export class AdresseService {
           code_postal: d['features'][i]['properties']['postcode']
         });
       }
-      console.log(this.suggestions)
+      // console.log(this.suggestions)
     })
     return this.suggestions;
   }
