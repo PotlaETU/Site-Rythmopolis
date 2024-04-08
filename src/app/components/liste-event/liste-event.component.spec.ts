@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EvenementsComponent } from './evenements.component';
+import { EvenementsComponent } from './liste-event.component';
 
 describe('EvenementsComponent', () => {
   let component: EvenementsComponent;
@@ -11,7 +11,7 @@ describe('EvenementsComponent', () => {
       imports: [EvenementsComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(EvenementsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
