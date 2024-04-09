@@ -6,6 +6,7 @@ import {Reservation} from "../../models/reservation";
 import {AuthentificationService} from "../../services/authentification.service";
 import {Role} from "../../models/role";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {User} from "../../models/user";
 
 @Component({
   selector: 'app-detail-client',
@@ -20,16 +21,19 @@ export class DetailClientComponent {
   route = inject(ActivatedRoute);
   clientService = inject(ClientService);
   client?: Client;
+  user?: User;
   authService = inject(AuthentificationService);
   reservations? : Reservation[];
   loading = false;
-  id=''
+  id: number = 0
 
   form: FormGroup = new FormGroup({
     nom: new FormControl("", ),
     prenom: new FormControl("", ),
+    avatar: new FormControl("", ),
     adresse: new FormControl("", ),
     ville: new FormControl(""),
+    code_postal: new FormControl(""),
   });
 
   get nom(): any {
@@ -40,6 +44,10 @@ export class DetailClientComponent {
     return this.form.get('prenom');
   }
 
+  get avatar(): any {
+    return this.form.get('avatar');
+  }
+
   get adresse(): any {
     return this.form.get('adresse');
   }
@@ -48,13 +56,19 @@ export class DetailClientComponent {
     return this.form.get('ville');
   }
 
+  get code_postal(): any {
+    return this.form.get('code_postal');
+  }
+
 
   ngOnInit() {
-    this.id = (this.route.snapshot.paramMap.get('id') || '1');
-    this.clientService.getClient(this.id).subscribe(client => {
-      this.client = client;
-        // this.reservations = client.reservations
-    });
+    let idParam = this.route.snapshot.paramMap.get('id');
+    this.id = idParam ? +idParam : 1;
+    console.log(this.id)
+    this.clientService.getClients().subscribe(clients => {
+      this.client = clients.find(client => client.id === this.id);
+    })
+    this.clientService.getUserById(this.id).subscribe(user => {this.user = user});
   }
 
   modifUser() {

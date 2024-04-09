@@ -22,8 +22,8 @@ export const routes: Routes = [
   // {path: "clients", component: ListeClientComponent},
   // {path: "clients/:{id}", component: DetailClientComponent},
   { path: "liste-event", component: EventListComponent },
-  { path: "clients/:{id}/edit", component: ClientEditComponent },
-  { path: "clients/:{id}", component: DetailClientComponent, canActivate: [() => inject(AuthGuard).canActivate()] },
+  { path: "clients/:id/edit", component: ClientEditComponent },
+  { path: "clients/:id", component: DetailClientComponent, canActivate: [() => inject(AuthGuard).canActivate()] },
   { path: "clients", component: ListeClientComponent, canActivate: [() => inject(AuthGuard).canActivate()] },
   { path: "profil", component: ProfilComponent, canActivate: [()=>inject(AuthGuard).canViewProfil()] },
   { path: "**", component: PageNotFoundComponent }

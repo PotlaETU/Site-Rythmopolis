@@ -3,7 +3,7 @@
     <div
       class="sticky flex flex-col gap-2 p-4 text-sm border-r border-indigo-100 top-12"
     >
-      <h2 class="pl-3 mb-4 text-2xl font-semibold">Détails du client n° {{client?.id}}</h2>
+      <h2 class="pl-3 mb-4 text-2xl font-semibold">Client n° {{client?.id}}</h2>
       <p>
         Vous pouvez éditer ou visualiser <br />
         le client ici.
@@ -22,68 +22,119 @@
         </p>
         <div class="grid max-w-2xl mx-auto mt-5">
           <div class="items-center sm:mt-5 text-[#202142]">
-            <div
-              class="flex flex-col items-center w-full mb-2 space-x-0 space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0 sm:mb-6"
-            >
+            <form [formGroup]="form">
+              <div
+                class="flex flex-col items-center w-full mb-2 space-x-0 space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0 sm:mb-6"
+              >
+
+                <div class="w-full">
+                  <label for="nom" class="block mb-2 text-sm font-medium"
+                  >Nom
+                  </label>
+                  <input
+                    type="text"
+                    id="nom"
+                    formControlName="nom"
+                    class="bg-indigo-50 border border-indigo-300 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
+                    placeholder="Vallin"
+                    value="{{ client?.nom}}"
+                  />
+                </div>
+              </div>
 
 
+
+              <div class="mb-2 sm:mb-6">
+                <label for="prenom" class="block mb-2 text-sm font-medium"
+                >Prénom</label
+                >
+                <input
+                  type="text"
+                  id="prenom"
+                  formControlName="prenom"
+                  class="bg-indigo-50 border border-indigo-300 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
+                  placeholder="Zia"
+                  value="{{ client?.prenom }}"
+                />
+              </div>
+
+              <div class="mb-2 sm:mb-6">
+                <label for="avatar" class="block mb-2 text-sm font-medium"
+                >Avatar</label
+                >
+                <input
+                  type="text"
+                  id="avatar"
+                  formControlName="avatar"
+                  class="bg-indigo-50 border border-indigo-300 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
+                  placeholder="Zia"
+                  value="{{ client?.avatar }}"
+                />
+              </div>
+
+              <div class="mb-2 sm:mb-6">
               <div class="w-full">
-                <label for="nom" class="block mb-2 text-sm font-medium"
-                >Nom
+                <label
+                  for="adresse"
+                  class="block mb-2 text-sm font-medium text-black"
+                >Adresse
                 </label>
                 <input
                   type="text"
-                  id="nom"
-                  formControlName="nom"
+                  id="adresse"
+                  formControlName="adresse"
                   class="bg-indigo-50 border border-indigo-300 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
-                  placeholder="Vallin"
-                  value="{{ client?.nom}}"
+                  placeholder="Chemin des prières"
+                  value="{{client?.adresse}}"
+                />
+              </div>
+              </div>
+              <div class="mb-2 sm:mb-6">
+              <div class="w-full">
+                <label
+                  for="ville"
+                  class="block mb-2 text-sm font-medium text-black"
+                >Ville
+                </label>
+                <input
+                  type="text"
+                  id="ville"
+                  formControlName="ville"
+                  class="bg-indigo-50 border border-indigo-300 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
+                  placeholder="Chemin des prières"
+                  value="{{client?.ville}}"
+                />
+              </div>
+          </div>
+              <div class="mb-2 sm:mb-6">
+              <div class="w-full">
+                <label
+                  for="code_postal"
+                  class="block mb-2 text-sm font-medium text-black"
+                >Code postal
+                </label>
+                <input
+                  type="text"
+                  id="code_postal"
+                  formControlName="code_postal"
+                  class="bg-indigo-50 border border-indigo-300 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
+                  placeholder="Chemin des prières"
+                  value="{{client?.code_postal}}"
                 />
               </div>
             </div>
-
-
-
-            <div class="mb-2 sm:mb-6">
-              <label for="prenom" class="block mb-2 text-sm font-medium"
-              >Prénom</label
-              >
-              <input
-                type="text"
-                id="prenom"
-                formControlName="prenom"
-                class="bg-indigo-50 border border-indigo-300 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
-                placeholder="Zia"
-                value="{{ client?.prenom }}"
-              />
-            </div>
-
-            <div class="w-full">
-              <label
-                for="adresse"
-                class="block mb-2 text-sm font-medium text-black"
-              >Adresse
-              </label>
-              <input
-                type="text"
-                id="adresse"
-                class="bg-indigo-50 border border-indigo-300 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
-                placeholder="Chemin des prières"
-                value="{{client?.adresse}}"
-              />
-            </div>
-
-            <div class="flex justify-end">
-              <button
-                type="submit"
-                class="btn btn-primary"
-                (click)="modifUser()"
-              >
-                @if (loading) {
-                <span class="loading loading-spinner loading-sm"></span>
-                } Enregistrer
-              </button>
-            </div>
+              <div class="flex justify-end mt-5">
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  (click)="modifUser()"
+                >
+                  @if (loading) {
+                  <span class="loading loading-spinner loading-sm"></span>
+                  } Enregistrer
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

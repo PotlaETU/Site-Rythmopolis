@@ -49,12 +49,12 @@ export class ClientService {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'authorization': `bearer ${token}`})
     };
-    return this.http.get<{clients: Client}>(url, httpOptions).pipe(
-      map(res => res.clients)
+    return this.http.get<{client: Client}>(url, httpOptions).pipe(
+      map(res => res.client)
     );
   }
 
-  setClient(id:string, form: FormGroup):Observable<Client>{
+  setClient(id: number, form: FormGroup):Observable<Client>{
     const url = `${environment.apiURL}/clients/${id}`;
     const token = JSON.parse(localStorage.getItem('user') || '{}').token;
     const httpOptions = {
@@ -65,6 +65,17 @@ export class ClientService {
         console.log('Erreur SetClients : ', err);
         return of();
       })
+    );
+  }
+
+  getUserById(id: number): Observable<User> {
+    const url = `${environment.apiURL}/users/${id}`;
+    const token = JSON.parse(localStorage.getItem('user') || '{}').token;
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'authorization': `bearer ${token}`})
+    };
+    return this.http.get<{client: User}>(url, httpOptions).pipe(
+      map(res => res.client)
     );
   }
 }
