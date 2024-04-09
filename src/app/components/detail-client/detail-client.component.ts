@@ -1,5 +1,5 @@
 import {Component, inject} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ClientService} from "../../services/client.service";
 import {Client} from "../../models/client";
 import {Reservation} from "../../models/reservation";
@@ -7,6 +7,7 @@ import {AuthentificationService} from "../../services/authentification.service";
 import {Role} from "../../models/role";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {User} from "../../models/user";
+import {waitForAsync} from "@angular/core/testing";
 
 @Component({
   selector: 'app-detail-client',
@@ -19,6 +20,7 @@ import {User} from "../../models/user";
 })
 export class DetailClientComponent {
   route = inject(ActivatedRoute);
+  router = inject(Router)
   clientService = inject(ClientService);
   client?: Client;
   user?: User;
@@ -68,9 +70,8 @@ export class DetailClientComponent {
 
   ngOnInit() {
     this.id = +(this.route.snapshot.paramMap.get('id') || 0);
-    this.clientService.getClient(this.id.toString()).subscribe(client => { this.client = client; this.form.patchValue(client) });
+    this.clientService.getClient(this.id.toString()).subscribe(client => { this.client = client; this.form.patchValue(client); });
     this.clientService.getUser(this.id.toString()).subscribe(user => { this.user = user;});
-    console.log(this.user)
     this.clientService.getReservation(this.id.toString()).subscribe(reservations => { this.reservations = reservations});
   }
 
@@ -82,4 +83,10 @@ export class DetailClientComponent {
     }
     this.clientService.setClient(this.id, this.form)
   }
+
+  onModif(){
+    this.router.navigate([`/clients/${this.user?.id}/edit`]);
+  }
+
+  protected readonly navigator = navigator;
 }
