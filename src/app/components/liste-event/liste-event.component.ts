@@ -7,11 +7,12 @@ import {Participant} from "../../models/participant";
 import {Artiste} from "../../models/artiste";
 import {map, Observable} from "rxjs";
 import {AsyncPipe} from "@angular/common";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-event-list',
   standalone: true,
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, RouterLink],
   templateUrl: './liste-event.component.html',
   styleUrl: './liste-event.component.css'
 })

@@ -12,6 +12,8 @@ import { EventListComponent } from "./components/liste-event/liste-event.compone
 import { ClientEditComponent } from "./components/client-edit/client-edit.component";
 import { inject } from "@angular/core";
 import { ProfilComponent } from './components/profil/profil.component';
+import {DetailEventComponent} from "./components/detail-event/detail-event.component";
+import {EventEditComponent} from "./components/event-edit/event-edit.component";
 
 export const routes: Routes = [
   { path: "", pathMatch: "full", component: AccueilComponent },
@@ -22,6 +24,8 @@ export const routes: Routes = [
   // {path: "clients", component: ListeClientComponent},
   // {path: "clients/:{id}", component: DetailClientComponent},
   { path: "liste-event", component: EventListComponent },
+  { path: "evenements/:id", component: DetailEventComponent },
+  { path: "evenements/:id/edit", component: EventEditComponent },
   { path: "clients/:id/edit", component: ClientEditComponent },
   { path: "clients/:id", component: DetailClientComponent, canActivate: [() => inject(AuthGuard).canActivate()] },
   { path: "clients", component: ListeClientComponent, canActivate: [() => inject(AuthGuard).canActivate()] },
