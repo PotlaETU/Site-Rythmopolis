@@ -3,9 +3,9 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {environment} from "../../environments/environments";
-import {Client} from "../models/client";
 import {Evenement} from "../models/evenement";
-
+import {Client} from "../models/client";
+import {Artiste} from "../models/artiste";
 
 @Injectable({
   providedIn: 'root'
@@ -29,14 +29,24 @@ export class EventService {
     );
   }
 
-  getEvent(id: number): Observable<Evenement> {
+  getParticipants(id: number): Observable<any> {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const token = user.token;
     const url = `${environment.apiURL}/evenements/${id}`;
+
     const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'})
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'authorization': `bearer ${token}`})
     };
-    return this.http.get<{data: Evenement}>(url, httpOptions).pipe(
-      map(res => res.data)
+
+    console.log('getParticipants')
+    return this.http.get<{evenement: Evenement}>(url, httpOptions).pipe(
+      map(res =>
+        res.evenement.artistes
+      ),catchError(err => {
+        console.log('Erreur http : ', err);
+        return of([]);
+      }),
     );
   }
-
 }
+
