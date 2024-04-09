@@ -1,46 +1,106 @@
-<div>
-  <div class="px-4 sm:px-0">
-    <h3 class="text-base font-semibold leading-7 text-gray-900">Information de {{ client?.nom }}</h3>
-    <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Personal details and application.</p>
-  </div>
-  <div class="mt-6 border-t border-gray-100">
-    <dl class="divide-y divide-gray-100">
-      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-        <dt class="text-sm font-medium leading-6 text-gray-900">Nom du client</dt>
-        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ client?.nom }}</dd>
+<div class="w-full flex flex-col gap-5 px-3 md:px-16 lg:px-28 md:flex-row">
+  <aside class="hidden py-4 md:w-1/3 lg:w-1/4 md:block">
+    <div
+      class="sticky flex flex-col gap-2 p-4 text-sm border-r border-indigo-100 top-12"
+    >
+      <h2 class="pl-3 mb-4 text-2xl font-semibold">Détails du client n° {{client?.id}}</h2>
+      <p>
+        Vous pouvez éditer ou visualiser <br />
+        le client ici.
+      </p>
+    </div>
+  </aside>
+  <main class="w-full py-1 md:w-2/3 lg:w-3/4">
+    <div class="p-2 md:p-4">
+      <div class="w-full px-6 pb-8 mt-4 sm:max-w-xl sm:rounded-lg">
+        <h2 class="text-2xl font-bold sm:text-xl">
+          {{ client?.nom }}
+        </h2>
+        <p class="mt-2">
+          Client:
+          <span>{{ client?.nom }}</span>
+        </p>
+        <div class="grid max-w-2xl mx-auto mt-5">
+          <div class="items-center sm:mt-5 text-[#202142]">
+            <div
+              class="flex flex-col items-center w-full mb-2 space-x-0 space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0 sm:mb-6"
+            >
+
+
+              <div class="w-full">
+                <label for="nom" class="block mb-2 text-sm font-medium"
+                >Nom
+                </label>
+                <input
+                  type="text"
+                  id="nom"
+                  formControlName="nom"
+                  class="bg-indigo-50 border border-indigo-300 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
+                  placeholder="Vallin"
+                  value="{{ client?.nom}}"
+                />
+              </div>
+            </div>
+
+
+
+            <div class="mb-2 sm:mb-6">
+              <label for="prenom" class="block mb-2 text-sm font-medium"
+              >Prénom</label
+              >
+              <input
+                type="text"
+                id="prenom"
+                formControlName="prenom"
+                class="bg-indigo-50 border border-indigo-300 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
+                placeholder="Zia"
+                value="{{ client?.prenom }}"
+              />
+            </div>
+
+            <div class="w-full">
+              <label
+                for="adresse"
+                class="block mb-2 text-sm font-medium text-black"
+              >Adresse
+              </label>
+              <input
+                type="text"
+                id="adresse"
+                class="bg-indigo-50 border border-indigo-300 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
+                placeholder="Chemin des prières"
+                value="{{client?.adresse}}"
+              />
+            </div>
+
+            <div class="flex justify-end">
+              <button
+                type="submit"
+                class="btn btn-primary"
+                (click)="modifUser()"
+              >
+                @if (loading) {
+                <span class="loading loading-spinner loading-sm"></span>
+                } Enregistrer
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-        <dt class="text-sm font-medium leading-6 text-gray-900">Role</dt>
-        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ client?.user?.role }}</dd>
-      </div>
-      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-        <dt class="text-sm font-medium leading-6 text-gray-900">Email address</dt>
-        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ client?.user?.email}}</dd>
-      </div>
-      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-        <dt class="text-sm font-medium leading-6 text-gray-900">Adresse Ville et Code postal</dt>
-        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{client?.adresse}} {{client?.ville}} - {{client?.code_postal}}</dd>
-      </div>
-      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-        <dt class="text-sm font-medium leading-6 text-gray-900">Reservations</dt>
-        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-          <ul role="list" class="divide-y divide-gray-100">
-            @if(reservations){
-              @for(reservation of reservations; track reservation){
-              <li class="flex justify-between gap-x-6 py-5">
-                <div class="flex min-w-0 gap-x-4">
-                  <div class="min-w-0 flex-auto">
-                    <p class="text-sm font-semibold leading-6 text-gray-900">{{reservation}}</p>
-                  </div>
-                </div>
-              </li>
-              }
-            }
-          </ul>
-        </dd>
-      </div>
-    </dl>
-  </div>
+    </div>
+  </main>
 </div>
+
+<!--            @if(reservations){-->
+<!--              @for(reservation of reservations; track reservation){-->
+<!--              <li class="flex justify-between gap-x-6 py-5">-->
+<!--                <div class="flex min-w-0 gap-x-4">-->
+<!--                  <div class="min-w-0 flex-auto">-->
+<!--&lt;!&ndash;                    <p class="text-sm font-semibold leading-6 text-gray-900">{{reservation}}</p>&ndash;&gt;-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </li>-->
+<!--              }-->
+<!--            }-->
 
 
