@@ -26,10 +26,18 @@
 </div>
 <div>
 @if(user.role === 'ADMIN' || user.role === 'GESTIONNAIRE'){
-  <button> Modification </button>
+  <a [routerLink]="['/evenements/edit']">
+      <button class="btn btn-primary mt-10">
+        MODIFIER
+      </button>
+    </a>
 }
 @if(user.role === 'ADMIN'){
-<button> SUPPRIMER </button>
+  <a [routerLink]="['/evenements']">
+      <button class="btn btn-primary mt-10">
+        SUPPRIMER
+      </button>
+    </a>
 }
 </div>
 
