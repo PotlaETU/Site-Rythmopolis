@@ -54,6 +54,17 @@ export class ClientService {
     );
   }
 
+  getUser(id:string):Observable<User>{
+    const url = `${environment.apiURL}/clients/${id}`;
+    const token = JSON.parse(localStorage.getItem('user') || '{}' ).token;
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'authorization': `bearer ${token}`})
+    };
+    return this.http.get<{user: User}>(url, httpOptions).pipe(
+      map(res => res.user)
+    );
+  }
+
   setClient(id: number, form: FormGroup):Observable<Client>{
     const url = `${environment.apiURL}/clients/${id}`;
     const token = JSON.parse(localStorage.getItem('user') || '{}').token;

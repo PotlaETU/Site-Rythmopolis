@@ -59,6 +59,19 @@
               </div>
 
               <div class="mb-2 sm:mb-6">
+                <label for="email" class="block mb-2 text-sm font-medium"
+                >Email</label>
+                <input
+                  type="text"
+                  id="email"
+                  formControlName="email"
+                  class="bg-indigo-50 border border-indigo-300 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
+                  placeholder="Zia"
+                  value="{{ client?.user?.email }}"
+                />
+              </div>
+
+              <div class="mb-2 sm:mb-6">
                 <label for="avatar" class="block mb-2 text-sm font-medium"
                 >Avatar</label
                 >

@@ -9,5 +9,5 @@ export interface Client {
   adresse: string;
   code_postal: string;
   ville: string;
-  user_id: number;
+  user: User;
 }

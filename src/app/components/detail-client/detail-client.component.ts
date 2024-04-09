@@ -21,7 +21,6 @@ export class DetailClientComponent {
   route = inject(ActivatedRoute);
   clientService = inject(ClientService);
   client?: Client;
-  user?: User;
   authService = inject(AuthentificationService);
   reservations? : Reservation[];
   loading = false;
@@ -30,6 +29,7 @@ export class DetailClientComponent {
   form: FormGroup = new FormGroup({
     nom: new FormControl("", ),
     prenom: new FormControl("", ),
+    email: new FormControl("", ),
     avatar: new FormControl("", ),
     adresse: new FormControl("", ),
     ville: new FormControl(""),
@@ -42,6 +42,10 @@ export class DetailClientComponent {
 
   get prenom(): any {
     return this.form.get('prenom');
+  }
+
+  get email(): any {
+    return this.form.get('email');
   }
 
   get avatar(): any {
@@ -62,13 +66,10 @@ export class DetailClientComponent {
 
 
   ngOnInit() {
-    let idParam = this.route.snapshot.paramMap.get('id');
-    this.id = idParam ? +idParam : 1;
+    this.id = +(this.route.snapshot.paramMap.get('id') || 0);
     console.log(this.id)
-    this.clientService.getClients().subscribe(clients => {
-      this.client = clients.find(client => client.id === this.id);
-    })
-    this.clientService.getUserById(this.id).subscribe(user => {this.user = user});
+    this.clientService.getClient(this.id.toString()).subscribe(client => { this.client = client; this.form.patchValue(client) });
+    this.clientService.getUser(this.id.toString()).subscribe(user => { this.form.patchValue(user) });
   }
 
   modifUser() {
