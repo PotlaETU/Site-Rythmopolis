@@ -43,7 +43,6 @@
               </div>
 
 
-
               <div class="mb-2 sm:mb-6">
                 <label for="prenom" class="block mb-2 text-sm font-medium"
                 >Prénom</label
@@ -61,14 +60,7 @@
               <div class="mb-2 sm:mb-6">
                 <label for="email" class="block mb-2 text-sm font-medium"
                 >Email</label>
-                <input
-                  type="text"
-                  id="email"
-                  formControlName="email"
-                  class="bg-indigo-50 border border-indigo-300 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
-                  placeholder="Zia"
-                  value="{{ client?.user?.email }}"
-                />
+                <span id="email"> {{ user?.email }}</span>
               </div>
 
               <div class="mb-2 sm:mb-6">
@@ -83,6 +75,13 @@
                   placeholder="Zia"
                   value="{{ client?.avatar }}"
                 />
+              </div>
+
+              <div class="mb-2 sm:mb-6">
+                <label for="role" class="block mb-2 text-sm font-medium"
+                >Role</label
+                >
+                <span id="role"> {{ user?.role }}</span>
               </div>
 
               <div class="mb-2 sm:mb-6">
@@ -136,7 +135,38 @@
                 />
               </div>
             </div>
+
+
+
+              <ul role="list" class="divide-y divide-gray-100">
+                <label
+                  for="code_postal"
+                  class="block mb-2 text-sm font-medium text-black"
+                >Reservations
+                </label>
+                @for(reservation of reservations; track reservation.id){
+                  <li class="flex justify-between gap-x-6 py-5">
+                    <div class="flex min-w-0 gap-x-4">
+                      <div class="min-w-0 flex-auto">
+                        <p class="text-sm font-semibold leading-6 text-gray-900">{{ reservation.date_res}}</p>
+                        <p class="mt-1 truncate text-xs leading-5 text-gray-500">Nompbre billets: {{ reservation.nb_billets}}  Montant: {{ reservation.montant}}</p>
+                      </div>
+                    </div>
+                  </li>
+                }
+              </ul>
+
+
               <div class="flex justify-end mt-5">
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  (click)="onModif()"
+                >
+                  @if (loading) {
+                  <span class="loading loading-spinner loading-sm"></span>
+                  } Modifier le User
+                </button>
                 <button
                   type="submit"
                   class="btn btn-primary"
