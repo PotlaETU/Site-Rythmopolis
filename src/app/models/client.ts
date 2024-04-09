@@ -9,6 +9,5 @@ export interface Client {
   adresse: string;
   code_postal: string;
   ville: string;
-  user: User;
-  reservations : Reservation[]
+  user_id: number;
 }
