@@ -17,8 +17,6 @@ import {AsyncPipe} from "@angular/common";
 })
 export class EventListComponent implements OnInit {
   events: Evenement[] = [];
-  selectedEvent: Evenement | null = null;
-  artistes: Artiste[] = [];
   authService:AuthentificationService = inject(AuthentificationService)
   artistesEvent: Artiste[] = [];
 
@@ -55,8 +53,4 @@ export class EventListComponent implements OnInit {
     return artisteListe
   }
 
-
-  onSelect(event: Evenement): void {
-    this.selectedEvent = event;
-  }
 }
