@@ -1,23 +1,28 @@
+<div class="text-center text-4xl">Événements à venir</div>
 <div class="max-w-5xl mx-auto mt-8">
   <div class="border-l-2 border-gray-500 pl-8">
-    <div class="text-xl">Événements à venir</div>
-    @for(event of events;track event.id){
-    <div class="flex flex-col md:flex-row md:justify-between mt-4">
-      <a routerLink="/evenements/{{event.id}}">
-        <div class="mb-4 md:mb-0">
-          <h3 class="text-xl font-bold mb-2">{{event.titre}}</h3>
-          <p class="text-gray-600 text-sm">Date: {{event.date_event}}</p>
-          <p class="text-gray-600 text-sm">Lieu: {{event.lieu.nom }}</p>
-          <p class="text-gray-600 text-sm">Type: {{event.titre}}</p>
+    @if (loading) {
+      <span class="loading loading-dots loading-xl"></span>
+    }
+    @else {
+      @for(event of events;track event.id){
+        <div class="flex flex-col md:flex-row md:justify-between mt-4">
+        <a routerLink="/evenements/{{event.id}}">
+            <div class="mb-4 md:mb-0">
+              <h3 class="text-xl font-bold mb-2">{{event.titre}}</h3>
+              <p class="text-gray-600 text-sm">Date: {{event.date_event}}</p>
+              <p class="text-gray-600 text-sm">Lieu: {{event.lieu.nom }}</p>
+              <p class="text-gray-600 text-sm">Type: {{event.titre}}</p>
+            </div>
+        </a>
+          <ul>
+            <p class="font-bold">Avec :</p>
+            @for(artist of getArtistes(event.id) ; track artist.id){
+              <li>{{artist.nom}}</li>
+            }
+          </ul>
         </div>
-      </a>
-      <p class="text-gray-600 text-sm">Artistes:</p>
-      <ul>
-        @for(artist of getArtistes(event.id) ; track artist.id){
-          <li>{{artist.nom}}</li>
-        }
-      </ul>
-    </div>
+    }
     }
   </div>
 </div>

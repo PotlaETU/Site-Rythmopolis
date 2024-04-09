@@ -43,7 +43,7 @@ export class AuthentificationService {
           return user;
         }),
         shareReplay(),
-        tap(() => this.snackbar.open(`Bienvenue, ${this.userValue.nom}`, 'Close', {
+        tap(() => this.snackbar.open(`Bienvenue, ${this.userValue.name}`, 'Close', {
           duration: 2000, horizontalPosition: 'left', verticalPosition: 'top'
         })),
         catchError(err => {
@@ -70,7 +70,7 @@ export class AuthentificationService {
       map(rep => {
         const user = {...rep.user, token: rep.authorization.token};
         this.userSubject.next(user);
-        this.snackbar.open(`Bienvenue, ${this.userValue.nom}`, 'Close', {
+        this.snackbar.open(`Bienvenue, ${this.userValue.name}`, 'Close', {
           duration: 2000, horizontalPosition: 'right', verticalPosition: 'top'
         })
         localStorage.setItem('user', JSON.stringify(user));
@@ -93,7 +93,7 @@ export class AuthentificationService {
     this.http.post<any>(`${environment.apiURL}/logout`, {}, httpOptions)
       .pipe()
       .subscribe(user => {
-          this.snackbar.open(`A bientôt, ${oldUser.nom}`, 'Close', {
+          this.snackbar.open(`A bientôt, ${oldUser.name}`, 'Close', {
             duration: 2000, horizontalPosition: 'right', verticalPosition: 'top'
           })
         }

@@ -18,10 +18,9 @@ import {RouterLink} from "@angular/router";
 })
 export class EventListComponent implements OnInit {
   events: Evenement[] = [];
-  selectedEvent: Evenement | null = null;
-  artistes: Artiste[] = [];
   authService:AuthentificationService = inject(AuthentificationService)
   artistesEvent: Artiste[] = [];
+  loading =  false;
 
   constructor(private eventService: EventService) { }
 
@@ -30,6 +29,7 @@ export class EventListComponent implements OnInit {
   }
 
   getEvents(): void {
+    this.loading = true;
     this.eventService.getFutureEvents().subscribe(events => {
       this.events = events;
       console.log(this.events)
@@ -38,11 +38,12 @@ export class EventListComponent implements OnInit {
           this.artistesEvent.push(a)
         })
       })
+      this.loading = false;
     });
-    console.log(this.events)
   }
 
   getArtistes(id: number): Artiste[] {
+    this.loading = true;
     let artisteListe:Artiste[] = []
     console.log(this.events)
     this.events.forEach(e=>{
@@ -52,12 +53,8 @@ export class EventListComponent implements OnInit {
         })
       }
     })
-    console.log(artisteListe)
+    this.loading = false;
     return artisteListe
   }
 
-
-  onSelect(event: Evenement): void {
-    this.selectedEvent = event;
-  }
 }
