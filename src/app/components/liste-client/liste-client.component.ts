@@ -22,6 +22,7 @@ export class ListeClientComponent {
 
   ngOnInit() {
     this.clients$ = this.clientService.getClients();
+    this.clients$.subscribe(clients => console.log(clients));
   }
 
   clients(sort: number = 1 | 2){

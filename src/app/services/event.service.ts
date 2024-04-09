@@ -1,30 +1,37 @@
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
-import {catchError, map} from 'rxjs/operators';
-import {environment} from "../../environments/environments";
+import {catchError, map, Observable, of} from 'rxjs';
 import {Evenement} from "../models/evenement";
+import {environment} from "../../environments/environments";
 import {Client} from "../models/client";
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventService {
-  private eventsUrl = `${environment.apiURL}/evenements`;
+  private eventsUrl = environment.apiURL + '/events';
 
-  constructor(private http: HttpClient) { }
+  httpOptions = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
 
-  getFutureEvents(): Observable<Evenement[]> {
+  constructor(private http: HttpClient) {
+  }
+
+  events(): Observable<Evenement[]> {
+    return this.http.get<{
+      data: Evenement[]
+    }>(this.eventsUrl, this.httpOptions).pipe(map(e => e.data), catchError(err => {
+      console.error(err);
+      return of([])
+    }));
+  }
+
+  getEvent(id: number): Observable<Evenement> {
+    const url = `${environment.apiURL}/evenements/${id}`;
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     };
-
-    return this.http.get<{evenements: Evenement[]}>(this.eventsUrl, httpOptions).pipe(
-      map(res => res.evenements),
-      catchError(err => {
-        console.log('Erreur http : ', err);
-        return of([]);
-      }),
+    return this.http.get<{data: Evenement}>(url, httpOptions).pipe(
+      map(res => res.data)
     );
   }
 
