@@ -16,6 +16,7 @@
             </div>
         </a>
           <ul>
+            <p class="font-bold">Avec :</p>
             @for(artist of getArtistes(event.id) ; track artist.id){
               <li>{{artist.nom}}</li>
             }
@@ -25,5 +26,3 @@
     }
   </div>
 </div>
-
-<!--<a routerLink="/">        </a>-->
