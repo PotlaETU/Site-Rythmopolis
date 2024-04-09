@@ -27,7 +27,7 @@ export interface Profil {
 
 export const ANONYMOUS_USER: User = <User>{
   id: 0,
-  name: '',
+  nom: '',
   email: '',
   role: Role.NON_ACTIF,
   token: ''

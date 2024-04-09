@@ -7,7 +7,7 @@ export interface Reservation {
   date_res: Date;
   nb_billets: number;
   montant: number;
-  statut: Statut;
+  statut: string;
   evenement: Evenement;
   client: Client;
 }

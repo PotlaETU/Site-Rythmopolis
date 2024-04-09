@@ -4,11 +4,12 @@ import {map, Observable} from "rxjs";
 import {Client} from "../../models/client";
 import {AsyncPipe} from "@angular/common";
 import {AuthGuard} from "../../services/acces-control.guard.ts.service";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-liste-client',
   standalone: true,
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, RouterLink],
   templateUrl: './liste-client.component.html',
   styleUrl: './liste-client.component.css'
 })
@@ -22,6 +23,7 @@ export class ListeClientComponent {
 
   ngOnInit() {
     this.clients$ = this.clientService.getClients();
+    this.clients$.subscribe(clients => console.log(clients));
   }
 
   clients(sort: number = 1 | 2){

@@ -10,5 +10,4 @@ export interface Client {
   code_postal: string;
   ville: string;
   user: User;
-  reservations : Reservation[]
 }
