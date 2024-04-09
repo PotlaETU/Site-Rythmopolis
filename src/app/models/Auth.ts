@@ -1,4 +1,5 @@
 import {User} from "./user";
+import {Role} from "./role";
 
 export interface Identite {
   email: string;
@@ -6,8 +7,12 @@ export interface Identite {
 }
 
 export interface RegisterRequest {
+  nom: string;
+  prenom:string;
+  adresse:string;
+  code_postal:string;
+  ville: string;
   email: string;
-  name: string;
   password: string;
 }
 
@@ -24,7 +29,6 @@ export const ANONYMOUS_USER: User = <User>{
   id: 0,
   name: '',
   email: '',
-  password: '',
-  role: 'NON_ACTIF',
-  jwtToken: ''
+  role: Role.NON_ACTIF,
+  token: ''
 };

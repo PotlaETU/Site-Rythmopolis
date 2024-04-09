@@ -1,11 +1,12 @@
-import { Injectable } from '@angular/core';
-import { ANONYMOUS_USER, Identite } from "../models/Auth";
-import { BehaviorSubject, catchError, map, Observable, shareReplay, tap, throwError } from "rxjs";
-import { User } from "../models/user";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Router } from "@angular/router";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { environment } from "../../environments/environments";
+import {Injectable} from '@angular/core';
+import {ANONYMOUS_USER, Identite, RegisterRequest} from "../models/Auth";
+import {BehaviorSubject, catchError, map, Observable, shareReplay, tap, throwError} from "rxjs";
+import {User} from "../models/user";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Router} from "@angular/router";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {environment} from "../../environments/environments";
+import {Role} from "../models/role";
 
 
 const httpOptions = {
@@ -26,15 +27,19 @@ export class AuthentificationService {
   isLoggedOut$: Observable<boolean> = this.isLoggedIn$.pipe(map(isLoggedIn => !isLoggedIn));
 
   constructor(private http: HttpClient,
-    private snackbar: MatSnackBar,
-    private router: Router) { }
+              private snackbar: MatSnackBar,
+              private router: Router) {
+      this.userSubject.next(JSON.parse(localStorage.getItem('user') || '{}'));
+      this.user$ = this.userSubject.asObservable();
+  }
 
   login(credential: Identite): Observable<User> {
     return this.http.post<any>(`${environment.apiURL}/login`, credential, httpOptions)
       .pipe(
         map(rep => {
-          const user = { ...rep.user, jwtToken: rep.authorisation.token };
+          const user = {...rep.user, role: rep.user.role, token: rep.authorization.token};
           this.userSubject.next(user);
+          localStorage.setItem('user', JSON.stringify(user));
           return user;
         }),
         shareReplay(),
@@ -51,22 +56,24 @@ export class AuthentificationService {
       );
   }
 
-  register(request: any): Observable<User> {
+
+  register(request: RegisterRequest): Observable<User> {
     return this.http.post<any>(`${environment.apiURL}/register`, {
-      email: request.email,
-      name: request.name,
-      surname: request.surname,
+      nom: request.nom,
+      prenom: request.prenom,
       adresse: request.adresse,
-      codePostal: request.codePostal,
+      code_postal: request.code_postal,
       ville: request.ville,
-      password: request.password
+      email: request.email,
+      password: request.password,
     }, httpOptions).pipe(
       map(rep => {
-        const user = { ...rep.user, jwtToken: rep.authorisation.token };
+        const user = {...rep.user, token: rep.authorization.token};
         this.userSubject.next(user);
         this.snackbar.open(`Bienvenue, ${this.userValue.name}`, 'Close', {
           duration: 2000, horizontalPosition: 'right', verticalPosition: 'top'
         })
+        localStorage.setItem('user', JSON.stringify(user));
         return user;
       }),
       shareReplay(),
@@ -86,18 +93,18 @@ export class AuthentificationService {
     this.http.post<any>(`${environment.apiURL}/logout`, {}, httpOptions)
       .pipe()
       .subscribe(user => {
-        this.snackbar.open(`A bientôt, ${oldUser.name}`, 'Close', {
-          duration: 2000, horizontalPosition: 'right', verticalPosition: 'top'
-        })
-      }
+          this.snackbar.open(`A bientôt, ${oldUser.name}`, 'Close', {
+            duration: 2000, horizontalPosition: 'right', verticalPosition: 'top'
+          })
+        }
       );
     this.userSubject.next(ANONYMOUS_USER);
-
+    localStorage.removeItem('user');
     this.router.navigate(['/']);
   }
 
   getProfile(): Observable<User> {
-    return this.http.get<any>(`${environment.apiURL}/me`, httpOptions)
+    return this.http.get<any>(`${environment.apiURL}/profil`, httpOptions)
       .pipe(
         map(rep => rep.user),
         catchError(err => throwError(err))

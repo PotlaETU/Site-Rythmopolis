@@ -1,3 +1,9 @@
+@if (message.getMessage().length > 0) {
+<div role="alert" class="alert alert-error">
+  <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+  <span>{{message.getMessage()}} Connectez-vous pour continuer !</span>
+</div>
+}
 <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
   <div class="sm:mx-auto sm:w-full sm:max-w-sm">
     <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight">Déjà enregistré ? Connectez-vous</h2>
@@ -9,7 +15,6 @@
         <label for="email" class="block text-sm font-medium leading-6">Adresse Mail*
         <div class="mt-2">
           <input formControlName="email"
-                 pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                  placeholder=" "
                  id="email"
                  name="email"

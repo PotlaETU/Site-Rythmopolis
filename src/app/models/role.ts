@@ -1,6 +1,6 @@
 export enum Role{
-  ADMIN = 'ADMIN',
-  GESTIONNAIRE = 'GESTIONNAIRE',
-  ACTIF = 'ACTIF',
-  NON_ACTIF = 'NON_ACTIF'
+  ADMIN = 'admin',
+  GESTIONNAIRE = 'gestionnaire',
+  ACTIF = 'actif',
+  NON_ACTIF = 'non-actif'
 }
