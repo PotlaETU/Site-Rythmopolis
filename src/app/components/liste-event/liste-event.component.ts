@@ -18,8 +18,6 @@ import {RouterLink} from "@angular/router";
 })
 export class EventListComponent implements OnInit {
   events: Evenement[] = [];
-  selectedEvent: Evenement | null = null;
-  artistes: Artiste[] = [];
   authService:AuthentificationService = inject(AuthentificationService)
   artistesEvent: Artiste[] = [];
   loading =  false;
@@ -60,8 +58,4 @@ export class EventListComponent implements OnInit {
     return artisteListe
   }
 
-
-  onSelect(event: Evenement): void {
-    this.selectedEvent = event;
-  }
 }
