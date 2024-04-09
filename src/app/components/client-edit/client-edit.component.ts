@@ -41,7 +41,7 @@ export class ClientEditComponent {
   client?: Client;
 
   editForm: FormGroup = new FormGroup({
-    name: new FormControl([this.user?.nom], Validators.required),
+    name: new FormControl([this.user?.name], Validators.required),
     email: new FormControl([this.user?.email], Validators.required),
     password: new FormControl([], Validators.required),
     confirmPassword: new FormControl([''], Validators.required),
