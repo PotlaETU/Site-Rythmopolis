@@ -38,8 +38,8 @@ export class EventListComponent implements OnInit {
           this.artistesEvent.push(a)
         })
       })
+      this.loading = false;
     });
-    this.loading = false;
   }
 
   getArtistes(id: number): Artiste[] {
@@ -53,7 +53,6 @@ export class EventListComponent implements OnInit {
         })
       }
     })
-    console.log(artisteListe)
     this.loading = false;
     return artisteListe
   }

@@ -25,7 +25,8 @@ export class AccueilComponent implements OnInit {
 
   futureEvents: Evenement[] = [];
 
-  max=0
+  max = 0
+  loading: boolean = false;
 
 
   constructor(private messageService: MessageService, private eventService: EventService) {
@@ -46,12 +47,16 @@ export class AccueilComponent implements OnInit {
   }
 
   getEvents(): void {
+    this.loading = true;
     this.eventService.getFutureEvents()
-      .subscribe(events => events.forEach(e=>{
-        if(this.max<=4){
-          this.futureEvents.push(e)
-          this.max++
-        }
-      }));
+      .subscribe(events => {
+        events.forEach(e => {
+          if (this.max <= 4) {
+            this.futureEvents.push(e)
+            this.max++
+          }
+        });
+        this.loading = false;
+      });
   }
 }
