@@ -23,14 +23,12 @@ export class AccueilComponent implements OnInit {
 
   isLoggedVar: boolean = false;
 
-  constructor(private messageService: MessageService) {
-  }
+  futureEvents: Evenement[] = [];
 
-  eventAleatoire() {
-    this.event.events().subscribe((e) => {
-      let index = Math.floor(Math.random() * e.length);
-      this.selectedEvent = e[index];
-    })
+  max=0
+
+
+  constructor(private messageService: MessageService, private eventService: EventService) {
   }
 
   isLogged() {
@@ -44,5 +42,16 @@ export class AccueilComponent implements OnInit {
     this.message = this.messageService.getMessage();
     this.messageService.setMessage('');
     this.isLogged();
+    this.getEvents();
+  }
+
+  getEvents(): void {
+    this.eventService.getFutureEvents()
+      .subscribe(events => events.forEach(e=>{
+        if(this.max<=4){
+          this.futureEvents.push(e)
+          this.max++
+        }
+      }));
   }
 }

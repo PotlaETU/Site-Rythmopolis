@@ -21,7 +21,7 @@ export class EventListComponent implements OnInit {
   }
 
   getEvents(): void {
-    this.eventService.events().subscribe(events => this.events = events);
+    this.eventService.getFutureEvents().subscribe(events => this.events = events);
   }
 
   onSelect(event: Evenement): void {
