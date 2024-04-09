@@ -12,6 +12,7 @@ import { AuthentificationService } from './services/authentification.service';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
+
   title = 'AngularSite';
   image = 'assets/avatar.png'
   connection: string = 'Se connecter';
@@ -30,5 +31,15 @@ export class AppComponent {
   }
 
   constructor() {
+  }
+
+  setDark() {
+    if(localStorage.getItem('theme') === 'light') {
+      localStorage.setItem('theme', 'dark');
+    }
+    else if(localStorage.getItem('theme') === 'dark') {
+      localStorage.setItem('theme', 'light');
+    }
+    console.log(localStorage.getItem('theme'));
   }
 }
