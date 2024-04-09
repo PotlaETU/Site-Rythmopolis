@@ -7,6 +7,7 @@ import {environment} from "../../environments/environments";
 import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
 import {User} from "../models/user";
 import {FormGroup} from "@angular/forms";
+import {Reservation} from "../models/reservation";
 
 @Injectable({
   providedIn: 'root'
@@ -65,6 +66,17 @@ export class ClientService {
     );
   }
 
+  getReservation(id:string):Observable<Reservation[]>{
+    const url = `${environment.apiURL}/clients/${id}`;
+    const token = JSON.parse(localStorage.getItem('user') || '{}' ).token;
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'authorization': `bearer ${token}`})
+    };
+    return this.http.get<{reservation: Reservation[]}>(url, httpOptions).pipe(
+      map(res => res.reservation)
+    );
+  }
+
   setClient(id: number, form: FormGroup):Observable<Client>{
     const url = `${environment.apiURL}/clients/${id}`;
     const token = JSON.parse(localStorage.getItem('user') || '{}').token;
@@ -76,17 +88,6 @@ export class ClientService {
         console.log('Erreur SetClients : ', err);
         return of();
       })
-    );
-  }
-
-  getUserById(id: number): Observable<User> {
-    const url = `${environment.apiURL}/users/${id}`;
-    const token = JSON.parse(localStorage.getItem('user') || '{}').token;
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json', 'authorization': `bearer ${token}`})
-    };
-    return this.http.get<{client: User}>(url, httpOptions).pipe(
-      map(res => res.client)
     );
   }
 }

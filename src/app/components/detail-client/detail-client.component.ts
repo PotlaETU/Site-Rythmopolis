@@ -21,6 +21,7 @@ export class DetailClientComponent {
   route = inject(ActivatedRoute);
   clientService = inject(ClientService);
   client?: Client;
+  user?: User;
   authService = inject(AuthentificationService);
   reservations? : Reservation[];
   loading = false;
@@ -67,9 +68,10 @@ export class DetailClientComponent {
 
   ngOnInit() {
     this.id = +(this.route.snapshot.paramMap.get('id') || 0);
-    console.log(this.id)
     this.clientService.getClient(this.id.toString()).subscribe(client => { this.client = client; this.form.patchValue(client) });
-    this.clientService.getUser(this.id.toString()).subscribe(user => { this.form.patchValue(user) });
+    this.clientService.getUser(this.id.toString()).subscribe(user => { this.user = user;});
+    console.log(this.user)
+    this.clientService.getReservation(this.id.toString()).subscribe(reservations => { this.reservations = reservations});
   }
 
   modifUser() {
