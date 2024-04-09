@@ -22,7 +22,7 @@
 </div>
 } @else if(isLogged() && authServ.userValue.role === 'admin') {
   <h2 class="mt-3">
-    Bienvenue, {{authServ.userValue.name}} ! Tu es le chef ici !
+    Bienvenue, {{authServ.userValue.nom}} ! Tu es le chef ici !
   </h2>
   <div class="space-x-10">
       <a [routerLink]="['/events']">
@@ -38,7 +38,7 @@
   </div>
 }@else if (isLogged() && authServ.userValue.role === 'gestionnaire') {
   <h2 class="mt-3">
-    Bienvenue, {{authServ.userValue.name}} ! gestionnaire
+    Bienvenue, {{authServ.userValue.nom}} ! gestionnaire
   </h2>
   <div class="space-x-10">
       <a [routerLink]="['/events']">
@@ -54,7 +54,7 @@
   </div>
 } @else {
   <h2 class="space-x-10">
-    Bienvenue, {{authServ.userValue.name}} ! un NPC
+    Bienvenue, {{authServ.userValue.nom}} ! un NPC
   </h2>
   <div class="gap-3">
     <a [routerLink]="['/events']">
