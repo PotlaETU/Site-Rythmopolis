@@ -14,7 +14,7 @@
     <div class="p-2 md:p-4">
       <div class="w-full px-6 pb-8 mt-4 sm:max-w-xl sm:rounded-lg">
         <h2 class="text-2xl font-bold sm:text-xl">
-          {{ authService.userValue.name }}
+          {{ authService.userValue.nom }}
         </h2>
         <p class="mt-2">
           Vous êtes actuellement
@@ -36,7 +36,7 @@
                   id="prenom"
                   class="bg-indigo-50 border border-indigo-300 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
                   placeholder="Zia"
-                  value="{{ authService.userValue.name.split(' ')[0] }}"
+                  value="{{ authService.userValue.nom.split(' ')[0] }}"
                   required
                 />
               </div>
@@ -50,7 +50,7 @@
                   id="nom"
                   class="bg-indigo-50 border border-indigo-300 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
                   placeholder="Coraline"
-                  value="{{ authService.userValue.name.split(' ')[1] }}"
+                  value="{{ authService.userValue.nom.split(' ')[1] }}"
                   required
                 />
               </div>
