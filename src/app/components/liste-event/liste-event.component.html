@@ -1,5 +1,5 @@
-<div class="text-center text-4xl">Événements à venir</div>
 <div class="max-w-5xl mx-auto mt-8">
+  <div class="text-4xl font-bold bg-gradient-to-r from-orange-500 via-yellow-300 to-amber-400 bg-clip-text text-transparent inline-block">Événements à venir</div>
   <div class="border-l-2 border-gray-500 pl-8">
     @if (loading) {
       <span class="loading loading-dots loading-xl"></span>
@@ -15,7 +15,7 @@
               <p class="text-gray-600 text-sm">Type: {{event.titre}}</p>
             </div>
         </a>
-          <ul>
+          <ul class="artistes-list items-start">
             <p class="font-bold">Avec :</p>
             @for(artist of getArtistes(event.id) ; track artist.id){
               <li>{{artist.nom}}</li>
