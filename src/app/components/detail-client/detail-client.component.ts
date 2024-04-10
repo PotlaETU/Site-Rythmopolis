@@ -88,5 +88,4 @@ export class DetailClientComponent {
     this.router.navigate([`/clients/${this.user?.id}/edit`]);
   }
 
-  protected readonly navigator = navigator;
 }

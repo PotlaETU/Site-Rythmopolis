@@ -32,14 +32,4 @@ export class AppComponent {
 
   constructor() {
   }
-
-  setDark() {
-    if(localStorage.getItem('theme') === 'light') {
-      localStorage.setItem('theme', 'dark');
-    }
-    else if(localStorage.getItem('theme') === 'dark') {
-      localStorage.setItem('theme', 'light');
-    }
-    console.log(localStorage.getItem('theme'));
-  }
 }
