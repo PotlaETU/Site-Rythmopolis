@@ -11,3 +11,11 @@ export interface Reservation {
   evenement: Evenement;
   client: Client;
 }
+
+export interface Reservation2{
+  id:number;
+  etat:string;
+  date_reservation:string;
+  nb_billets:number;
+  montant:number;
+}

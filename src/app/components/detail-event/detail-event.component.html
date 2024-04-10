@@ -39,14 +39,14 @@
 </div>
 }
 <div class="text-center">
-@if(user.role.toString() === 'admin' || user.role.toString() == 'gestionnaire'){
+@if(user.role === Role.ADMIN || user.role == Role.GESTIONNAIRE){
   <a routerLink="/evenements/{{evenement?.id}}/edit">
       <button class="btn btn-primary mt-10 w-32">
         MODIFIER
       </button>
     </a>
 }
-@if(user.role.toString() === 'admin'){
+@if(user.role === Role.ADMIN){
   <div class="divider divider-horizontal"></div>
   <a>
       <button class="btn btn-primary mt-10 w-32" (click)="supprEvent()">
