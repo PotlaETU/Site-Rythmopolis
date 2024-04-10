@@ -56,4 +56,31 @@ export class EventListComponent implements OnInit {
     return artisteListe
   }
 
+  sortEvent(sort: number = 1 | 2){
+    if(sort === 1){
+      this.events.sort(
+        (a, b)=>{
+          if(a.lieu.adresse>b.lieu.adresse){
+            return 1
+          }
+          else {
+            return -1
+          }
+        }
+      )
+    }
+    else if(sort === 2){
+      this.events.sort(
+        (a, b)=>{
+          if(a.titre>b.titre){
+            return 1
+          }
+          else {
+            return -1
+          }
+        }
+      )
+    }
+  }
+
 }

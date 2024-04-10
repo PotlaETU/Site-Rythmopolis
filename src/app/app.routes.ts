@@ -14,6 +14,7 @@ import { inject } from "@angular/core";
 import { ProfilComponent } from './components/profil/profil.component';
 import {DetailEventComponent} from "./components/detail-event/detail-event.component";
 import {EventEditComponent} from "./components/event-edit/event-edit.component";
+import {ListeReservationComponent} from "./components/liste-reservation/liste-reservation.component";
 
 export const routes: Routes = [
   { path: "", pathMatch: "full", component: AccueilComponent },
@@ -25,11 +26,12 @@ export const routes: Routes = [
   // {path: "clients/:{id}", component: DetailClientComponent},
   { path: "liste-event", component: EventListComponent },
   { path: "evenements/:id", component: DetailEventComponent },
-  { path: "evenements/:id/edit", component: EventEditComponent },
-  { path: "clients/:id/edit", component: ClientEditComponent },
+  { path: "evenements/:id/edit", component: EventEditComponent, canActivate: [() => inject(AuthGuard).canActivate()]  },
+  { path: "clients/:id/edit", component: ClientEditComponent, canActivate: [() => inject(AuthGuard).canActivate()]  },
   { path: "clients/:id", component: DetailClientComponent, canActivate: [() => inject(AuthGuard).canActivate()] },
   { path: "clients", component: ListeClientComponent, canActivate: [() => inject(AuthGuard).canActivate()] },
   { path: "profil", component: ProfilComponent, canActivate: [()=>inject(AuthGuard).canViewProfil()] },
+  { path: "reservations", component: ListeReservationComponent, canActivate: [()=>inject(AuthGuard).canViewProfil()]},
   { path: "**", component: PageNotFoundComponent }
 ];
 // , canActivate: [(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) => inject(AuthGuard).canActivate(next, state)]

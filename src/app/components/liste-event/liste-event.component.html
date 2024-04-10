@@ -1,6 +1,12 @@
 <div class="max-w-5xl mx-auto mt-8">
   <div class="text-4xl font-bold bg-gradient-to-r from-orange-500 via-yellow-300 to-amber-400 bg-clip-text text-transparent inline-block">Événements à venir</div>
+  <div class="flex w-full p-7">
+    <button class="btn btn-primary grid h-20 flex-grow card rounded-box place-items-center" (click)="sortEvent(1)">Tri par lieu</button>
+    <div class="divider divider-horizontal"></div>
+    <button class="btn btn-primary grid h-20 flex-grow card rounded-box place-items-center" (click)="sortEvent(2)">Tri par type</button>
+  </div>
   <div class="border-l-2 border-gray-500 pl-8">
+
     @if (loading) {
       <span class="loading loading-dots loading-xl"></span>
     }
