@@ -5,6 +5,7 @@ import {PrixService} from "../../services/prix.service";
 import {Prix} from "../../models/prix";
 import {AuthentificationService} from "../../services/authentification.service";
 import {Evenement} from '../../models/evenement';
+import {MessageService} from "../../services/message.service";
 
 @Component({
   selector: 'app-detail-event',
@@ -25,6 +26,7 @@ export class DetailEventComponent {
   loadingSuppr = false;
   loading = false;
   evenement: Evenement | undefined;
+  messageService:MessageService = inject(MessageService)
 
   constructor(private router: Router) {
     this.evenement = undefined
