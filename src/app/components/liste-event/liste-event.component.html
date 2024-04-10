@@ -15,7 +15,7 @@
               <p class="text-gray-600 text-sm">Type: {{event.titre}}</p>
             </div>
         </a>
-          <ul class="artistes-list items-start">
+          <ul>
             <p class="font-bold">Avec :</p>
             @for(artist of getArtistes(event.id) ; track artist.id){
               <li>{{artist.nom}}</li>
