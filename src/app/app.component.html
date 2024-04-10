@@ -5,7 +5,7 @@
   </div>
   <div class="flex-none gap-2" id="navbar-compte">
     @if (isLogged()) {
-          <a [routerLink]="['']">Réservations</a> <!-- Si connecté-->
+          <a [routerLink]="['/reservations']">Réservations</a> <!-- Si connecté-->
     }
     <a [routerLink]="['/liste-event']">Événements</a>
     <!--DaisyUI changement du thème https://daisyui.com/components/theme-controller/ -->
