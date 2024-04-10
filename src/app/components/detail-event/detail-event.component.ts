@@ -6,6 +6,7 @@ import {Prix} from "../../models/prix";
 import {AuthentificationService} from "../../services/authentification.service";
 import {Evenement} from '../../models/evenement';
 import {MessageService} from "../../services/message.service";
+import {Role} from "../../models/role";
 
 @Component({
   selector: 'app-detail-event',
@@ -71,4 +72,6 @@ export class DetailEventComponent {
     this.loadingSuppr = false;
     this.router.navigateByUrl('/evenements');
   }
+
+  protected readonly Role = Role;
 }
