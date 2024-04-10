@@ -5,6 +5,7 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environments';
+import {DetailEventComponent} from "../detail-event/detail-event.component";
 
 @Component({
   selector: 'app-event-edit',
@@ -19,21 +20,22 @@ export class EventEditComponent {
   route = inject(ActivatedRoute);
   eventService = inject(EventService);
 
-  evenement: Evenement = this.getEvent();
-
+  evenement: Evenement | undefined = undefined
   form = new FormGroup({
-    titre: new FormControl(this.evenement.titre, [Validators.required]),
-    date_event: new FormControl(this.evenement.date_event, [Validators.required]),
-    description: new FormControl(this.evenement.description, [Validators.required]),
+    titre: new FormControl(this.evenement?.titre, [Validators.required]),
+    date_event: new FormControl(this.evenement?.date_event, [Validators.required]),
+    description: new FormControl(this.evenement?.description, [Validators.required]),
   });
-  
+
   router = inject(Router);
 
-  
+
   loading: boolean = false;
 
-  constructor(private http: HttpClient) {
+  loadingChange:boolean = false
 
+  constructor(private http: HttpClient) {
+    this.getEvent()
   }
 
   get titre() {
@@ -46,32 +48,43 @@ export class EventEditComponent {
   get description() {
     return this.form.get('titre')
   }
-
-
-
   getEvent() {
+    let evenementLoad: Evenement
     this.eventService.getFutureEvents().subscribe(
       e => {
         e.forEach(ev => {
           if (ev.id === +(this.route.snapshot.paramMap.get('id') || 0)) {
-            this.evenement = ev;
+            evenementLoad = ev;
           }
         });
       }
     );
-    return this.evenement;
+    this.loading = true
+    //On attends que l'API renvoie les données correctement (undefined sans setTimeout())
+    setTimeout(()=>{
+      this.evenement = evenementLoad
+      console.log('fin : ',this.evenement)
+      this.form.patchValue({
+        titre:this.evenement?.titre,
+        date_event: this.evenement?.date_event,
+        description: this.evenement?.description
+      })
+      this.loading = false
+    }, 2000)
   }
 
   updateEvent() {
-    this.loading = true
+    this.loadingChange = true
     const token = JSON.parse(localStorage.getItem('user') || '{}').token
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json', 'authorization': `bearer ${token}` })
     };
-    const eventsUrl = `${environment.apiURL}/evenements/${this.evenement.id}`;
-    this.http.put(eventsUrl, this.form.value, httpOptions)
-    this.loading = false
-    this.router.navigateByUrl(`/evenements/${this.evenement.id}`)
+    const eventsUrl = `${environment.apiURL}/evenements/${this.evenement?.id}`;
+    console.log(this.form.value)
+    this.http.put<any>(eventsUrl, this.form.value, httpOptions).subscribe(e=>{
+      console.log('Update : ' + e.status)
+    })
+    this.loadingChange = false
+    this.router.navigateByUrl(`/evenements/${this.evenement?.id}`)
   }
-
 }

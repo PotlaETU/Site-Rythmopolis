@@ -1,62 +1,74 @@
 <div class="p-10">
 <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-    <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight">Modifier l'évènement n°{{evenement.id}}</h2>
+    <h2 class="mt-10 text-center text-3xl font-bold leading-9 tracking-tight">Modifier l'évènement n°{{evenement?.id}}</h2>
   </div>
     <form [formGroup]="form" (ngSubmit)="updateEvent()">
 
-        <div>
-            <label for="titre" class="block text-sm font-medium leading-6">Titre
+        <div class="mt-5">
+            <label for="titre" class="block text-xl font-medium leading-6">Titre
                 <div class="mt-2">
-                    <input formControlName="titre"
+                    @if(loading){
+                  <span class="loading loading-dots loading-lg"></span>
+                  }
+                  @else{
+                  <input formControlName="titre"
                             placeholder=" "
                             id="titre"
                             name="titre"
                             type="text"
-                            value="{{evenement.titre}}"
                             autocomplete="titre"
                             required
                             class="block w-full rounded-md border-0">
+                  }
                 </div>
             </label>
         </div>
 
-        <div>
-            <label for="date_event" class="block text-sm font-medium leading-6">Date de l'évènement
+        <div class="mt-5">
+            <label for="date_event" class="block text-xl font-medium leading-6">Date de l'évènement
                 <div class="mt-2">
-                    <input formControlName="date_event"
+                    @if(loading){
+                  <span class="loading loading-dots loading-lg"></span>
+                  }
+                  @else{
+                  <input formControlName="date_event"
                             placeholder=" "
                             id="date_event"
                             name="date_event"
                             type="text"
-                            value="{{evenement.date_event}}"
                             autocomplete="date_event"
                             required
                             class="block w-full rounded-md border-0">
+                  }
                 </div>
             </label>
         </div>
 
-        <div>
-            <label for="description" class="block text-sm font-medium leading-6">Description
+        <div class="mt-5">
+            <label for="description" class="block text-xl font-medium leading-6">Description
                 <div class="mt-2">
-                    <input formControlName="description"
+                    @if(loading){
+                  <span class="loading loading-dots loading-lg"></span>
+                  }@else{
+                  <textarea formControlName="description"
                             placeholder=" "
                             id="description"
                             name="description"
                             type="text"
-                            value="{{evenement.description}}"
                             autocomplete="description"
                             required
-                            class="block w-full rounded-md border-0">
+                            class="textarea w-full">
+                      </textarea>
+                  }
                 </div>
             </label>
         </div>
-        
-        <button type="submit" class="btn btn-primary w-full group-invalid:pointer-events-none group-invalid:opacity-30">
-          @if (loading) {
+
+        <button type="submit" class="btn btn-primary w-full mt-10">
+          @if (loadingChange) {
               <span class="loading loading-spinner mr-2"></span>
           }
-          Connexion
+          Enregistrer
         </button>
     </form>
 </div>
