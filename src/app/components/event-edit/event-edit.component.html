@@ -1,1 +1,62 @@
-<p>event-edit works!</p>
+<div class="p-10">
+<div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight">Modifier l'évènement n°{{evenement.id}}</h2>
+  </div>
+    <form [formGroup]="form" (ngSubmit)="updateEvent()">
+
+        <div>
+            <label for="titre" class="block text-sm font-medium leading-6">Titre
+                <div class="mt-2">
+                    <input formControlName="titre"
+                            placeholder=" "
+                            id="titre"
+                            name="titre"
+                            type="text"
+                            value="{{evenement.titre}}"
+                            autocomplete="titre"
+                            required
+                            class="block w-full rounded-md border-0">
+                </div>
+            </label>
+        </div>
+
+        <div>
+            <label for="date_event" class="block text-sm font-medium leading-6">Date de l'évènement
+                <div class="mt-2">
+                    <input formControlName="date_event"
+                            placeholder=" "
+                            id="date_event"
+                            name="date_event"
+                            type="text"
+                            value="{{evenement.date_event}}"
+                            autocomplete="date_event"
+                            required
+                            class="block w-full rounded-md border-0">
+                </div>
+            </label>
+        </div>
+
+        <div>
+            <label for="description" class="block text-sm font-medium leading-6">Description
+                <div class="mt-2">
+                    <input formControlName="description"
+                            placeholder=" "
+                            id="description"
+                            name="description"
+                            type="text"
+                            value="{{evenement.description}}"
+                            autocomplete="description"
+                            required
+                            class="block w-full rounded-md border-0">
+                </div>
+            </label>
+        </div>
+        
+        <button type="submit" class="btn btn-primary w-full group-invalid:pointer-events-none group-invalid:opacity-30">
+          @if (loading) {
+              <span class="loading loading-spinner mr-2"></span>
+          }
+          Connexion
+        </button>
+    </form>
+</div>

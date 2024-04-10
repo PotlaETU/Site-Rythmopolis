@@ -36,8 +36,7 @@ export class DetailEventComponent {
     this.prixService.getEvenementById(id).subscribe(
       prix => { 
         prix.forEach(p => {
-          console.log(p);
-          this.prix?.push();
+          this.prix?.push(p);
         });
       }
     );
