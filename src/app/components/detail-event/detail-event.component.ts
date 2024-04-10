@@ -4,7 +4,7 @@ import {EventService} from "../../services/event.service";
 import {PrixService} from "../../services/prix.service";
 import {Prix} from "../../models/prix";
 import {AuthentificationService} from "../../services/authentification.service";
-import { Evenement } from '../../models/evenement';
+import {Evenement} from '../../models/evenement';
 
 @Component({
   selector: 'app-detail-event',
@@ -22,45 +22,50 @@ export class DetailEventComponent {
   authService = inject(AuthentificationService);
   prix: Prix[] = [];
   user = this.authService.userValue;
-  evenement:Evenement = this.getEvent();
   loadingSuppr = false;
   loading = false;
+  evenement: Evenement | undefined;
 
-  constructor(private router:Router){
-
+  constructor(private router: Router) {
+    this.evenement = undefined
+    this.getEvent()
   }
 
   ngOnInit() {
-    this.loading = true;
     const id: number = +(this.route.snapshot.paramMap.get('id') || 0);
     this.prixService.getEvenementById(id).subscribe(
-      prix => { 
+      prix => {
         prix.forEach(p => {
-          console.log(p);
-          this.prix?.push();
+          this.prix?.push(p);
         });
       }
     );
-    console.log(this.prix);
-    this.loading = false;
   }
 
-  getEvent(): Evenement {
+  getEvent() {
+    let evenementLoad: Evenement
     this.eventService.getFutureEvents().subscribe(
       e => {
         e.forEach(ev => {
           if (ev.id === +(this.route.snapshot.paramMap.get('id') || 0)) {
-            this.evenement = ev;
+            evenementLoad = ev;
           }
         });
       }
     );
-    return this.evenement;
+    this.loading = true
+    setTimeout(()=>{
+      this.evenement = evenementLoad
+      this.loading = false
+      console.log(this.evenement)
+    }, 2000)
   }
 
-  supprEvent(){
+  supprEvent() {
     this.loadingSuppr = true;
-    this.eventService.deleteEvent(this.evenement.id);
+    if(this.evenement?.id){
+      this.eventService.deleteEvent(this.evenement.id);
+    }
     this.loadingSuppr = false;
     this.router.navigateByUrl('/evenements');
   }

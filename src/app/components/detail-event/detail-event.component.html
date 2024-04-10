@@ -3,23 +3,27 @@
   <span class="loading loading-dots loading-lg"></span>
 }@else {
     <div class="px-4 sm:px-0">
-      <h3 class="text-base font-semibold leading-7 text-gray-900">Information de {{ evenement.titre.toString() }}</h3>
+      <h3 class=" text-xl font-bold leading-7">Information de {{ evenement?.titre?.toString() }}</h3>
     </div>
     <div class="mt-6 border-t border-gray-100">
       <dl class="divide-y divide-gray-100">
         <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-          <dt class="text-sm font-medium leading-6 text-gray-900">Description</dt>
-          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ evenement.description }}</dd>
+          <dt class="text-sm font-medium leading-6">Description</dt>
+          @if(!loading){
+        <dd class="mt-1 text-sm leading-6  sm:col-span-2 sm:mt-0">{{ evenement?.description }}</dd>
+  }@else{
+  <span class="loading loading-dots loading-md"></span>
+  }
         </div>
         <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-          <dt class="text-sm font-medium leading-6 text-gray-900">Date et Lieu
-          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">Le {{ evenement.date_event }} à {{ evenement.lieu.ville}}</dd>
+          <dt class="text-sm font-medium leading-6 ">Date et Lieu
+          <dd class="mt-1 text-sm leading-6  sm:col-span-2 sm:mt-0">Le {{ evenement?.date_event }} à {{ evenement?.lieu?.ville}}</dd>
         </div>
         <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-          <dt class="text-sm font-medium leading-6 text-gray-900">Prix</dt>
-          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+          <dt class="text-sm font-medium leading-6 ">Prix et places</dt>
+          <dd class="mt-1 text-sm leading-6  sm:col-span-2 sm:mt-0">
           @for (price of prix; track price.id) {
-            {{ price.categorie }}<br>
+            {{ price.categorie }} | Il reste {{price.nombre_places}} places au prix de {{price.valeur}} €<br>
           }
           </dd>
         </div>
@@ -30,7 +34,7 @@
 }
 <div class="text-center">
 @if(user.role.toString() === 'admin' || user.role.toString() == 'gestionnaire'){
-  <a routerLink="/evenements/{{evenement.id}}/edit">
+  <a routerLink="/evenements/{{evenement?.id}}/edit">
       <button class="btn btn-primary mt-10 w-32">
         MODIFIER
       </button>
@@ -38,7 +42,7 @@
 }
 @if(user.role.toString() === 'admin'){
   <div class="divider divider-horizontal"></div>
-  <a routerLink="/evenements/{{evenement.id}}/edit">
+  <a>
       <button class="btn btn-primary mt-10 w-32" (click)="supprEvent()">
         @if (loadingSuppr) {
           <span class="loading loading-spinner loading-md"></span>

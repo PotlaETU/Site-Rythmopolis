@@ -32,7 +32,6 @@ export class EventListComponent implements OnInit {
     this.loading = true;
     this.eventService.getFutureEvents().subscribe(events => {
       this.events = events;
-      console.log(this.events)
       this.events.forEach(e=>{
         e.artistes.forEach(a=>{
           this.artistesEvent.push(a)
