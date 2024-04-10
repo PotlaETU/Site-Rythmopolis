@@ -6,6 +6,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environments';
 import {DetailEventComponent} from "../detail-event/detail-event.component";
+import {MessageService} from "../../services/message.service";
 
 @Component({
   selector: 'app-event-edit',
@@ -33,6 +34,8 @@ export class EventEditComponent {
   loading: boolean = false;
 
   loadingChange:boolean = false
+
+  messageService:MessageService = inject(MessageService)
 
   constructor(private http: HttpClient) {
     this.getEvent()
@@ -83,6 +86,9 @@ export class EventEditComponent {
     console.log(this.form.value)
     this.http.put<any>(eventsUrl, this.form.value, httpOptions).subscribe(e=>{
       console.log('Update : ' + e.status)
+      if (e.status ==='success'){
+        this.messageService.setMessage('Modifié avec succès !')
+      }
     })
     this.loadingChange = false
     this.router.navigateByUrl(`/evenements/${this.evenement?.id}`)
