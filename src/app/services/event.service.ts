@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
@@ -14,14 +14,15 @@ export class EventService {
 
   private eventsUrl = `${environment.apiURL}/evenements`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getFutureEvents(): Observable<Evenement[]> {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     };
 
-    return this.http.get<{evenements: Evenement[]}>(this.eventsUrl, httpOptions).pipe(
+    return this.http.get<{ evenements: Evenement[] }>(this.eventsUrl, httpOptions).pipe(
       map(res => res.evenements),
       catchError(err => {
         console.log('Erreur http : ', err);
@@ -40,10 +41,10 @@ export class EventService {
     };
 
     console.log('getParticipants')
-    return this.http.get<{evenement: Evenement}>(url, httpOptions).pipe(
+    return this.http.get<{ evenement: Evenement }>(url, httpOptions).pipe(
       map(res =>
         res.evenement.artistes
-      ),catchError(err => {
+      ), catchError(err => {
         console.log('Erreur http : ', err);
         return of([]);
       }),
@@ -56,7 +57,7 @@ export class EventService {
     const url = `${environment.apiURL}/evenements/${id}`;
 
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'authorization': `bearer ${token}` })
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'authorization': `bearer ${token}`})
     };
 
     console.log('getParticipants')
@@ -67,4 +68,3 @@ export class EventService {
     );
   }
 }
-
