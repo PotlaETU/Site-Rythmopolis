@@ -32,6 +32,7 @@ export const routes: Routes = [
   { path: "clients", component: ListeClientComponent, canActivate: [() => inject(AuthGuard).canActivate()] },
   { path: "profil", component: ProfilComponent, canActivate: [()=>inject(AuthGuard).canViewProfil()] },
   { path: "reservations", component: ListeReservationComponent, canActivate: [()=>inject(AuthGuard).canViewProfil()]},
+  { path : "reservations/:id", component: ListeReservationComponent, canActivate: [()=>inject(AuthGuard).canViewProfil()]},
   { path: "**", component: PageNotFoundComponent }
 ];
 // , canActivate: [(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) => inject(AuthGuard).canActivate(next, state)]
