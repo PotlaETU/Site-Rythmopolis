@@ -15,6 +15,7 @@ import { ProfilComponent } from './components/profil/profil.component';
 import {DetailEventComponent} from "./components/detail-event/detail-event.component";
 import {EventEditComponent} from "./components/event-edit/event-edit.component";
 import {ListeReservationComponent} from "./components/liste-reservation/liste-reservation.component";
+import {CreateEvenementComponent} from "./components/create-evenement/create-evenement.component";
 
 export const routes: Routes = [
   { path: "", pathMatch: "full", component: AccueilComponent },
@@ -25,6 +26,7 @@ export const routes: Routes = [
   // {path: "clients", component: ListeClientComponent},
   // {path: "clients/:{id}", component: DetailClientComponent},
   { path: "liste-event", component: EventListComponent },
+  { path: "evenements/create", component: CreateEvenementComponent, canActivate: [() => inject(AuthGuard).canActivate()]  },
   { path: "evenements/:id", component: DetailEventComponent },
   { path: "evenements/:id/edit", component: EventEditComponent, canActivate: [() => inject(AuthGuard).canActivate()]  },
   { path: "clients/:id/edit", component: ClientEditComponent, canActivate: [() => inject(AuthGuard).canActivate()]  },

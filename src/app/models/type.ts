@@ -1,7 +1,7 @@
 export enum Type {
-  THEATRE = 'THEATRE',
-  CINEMA = 'CINEMA',
-  CONCERT = 'CONCERT',
-  FESTIVAL = 'FESTIVAL',
-  COMPETITION = 'COMPETITION',
+  THEATRE = 'Théatre',
+  CINEMA = 'Cinéma',
+  CONCERT = 'Concert',
+  FESTIVAL = 'Festival',
+  COMPETITION = 'Compétition',
 }

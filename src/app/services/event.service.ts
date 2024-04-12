@@ -6,6 +6,7 @@ import {environment} from "../../environments/environments";
 import {Evenement} from "../models/evenement";
 import {Client} from "../models/client";
 import {Artiste} from "../models/artiste";
+import {FormGroup} from "@angular/forms";
 
 @Injectable({
   providedIn: 'root'
@@ -65,6 +66,20 @@ export class EventService {
       () => {
         console.log('Evenement supprimé');
       }
+    );
+  }
+
+  createEvenement(form: FormGroup):Observable<Evenement>{
+    const url = `${environment.apiURL}/evenements`;
+    const token = JSON.parse(localStorage.getItem('user') || '{}').token;
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'authorization': `bearer ${token}`})
+    };
+    return this.http.post<{evenement: Evenement}>(url, form.value ,httpOptions).pipe(
+      map(res => res.evenement),catchError(err => {
+        console.log('Erreur SetClients : ', err);
+        return of();
+      })
     );
   }
 }
