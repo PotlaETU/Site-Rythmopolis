@@ -1,0 +1,62 @@
+<div class="p-10">
+  @if(messageService.getMessage() != ''){
+  <div role="alert" class="alert alert-success">
+    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+    <span>{{messageService.getMessage()}}</span>
+  </div>
+  }
+@if (loading) {
+  <span class="loading loading-dots loading-lg"></span>
+}@else {
+    <div class="px-4 sm:px-0">
+      <h3 class=" text-xl font-bold leading-7">Information de {{ evenement?.titre?.toString() }}</h3>
+    </div>
+    <div class="mt-6 border-t border-gray-100">
+      <dl class="divide-y divide-gray-100">
+        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="text-sm font-medium leading-6">Description</dt>
+          @if(!loading){
+        <dd class="mt-1 text-sm leading-6  sm:col-span-2 sm:mt-0">{{ evenement?.description }}</dd>
+  }@else{
+  <span class="loading loading-dots loading-md"></span>
+  }
+        </div>
+        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="text-sm font-medium leading-6 ">Date et Lieu
+          <dd class="mt-1 text-sm leading-6  sm:col-span-2 sm:mt-0">Le {{ evenement?.date_event }} à {{ evenement?.lieu?.ville}}</dd>
+        </div>
+        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="text-sm font-medium leading-6 ">Prix et places</dt>
+          <dd class="mt-1 text-sm leading-6  sm:col-span-2 sm:mt-0">
+          @for (price of prix; track price.id) {
+            {{ price.categorie }} | Il reste {{price.nombre_places}} places au prix de {{price.valeur}} €<br>
+          }
+          </dd>
+        </div>
+      </dl>
+    </div>
+  <div>
+</div>
+}
+<div class="text-center">
+@if(user.role === Role.ADMIN || user.role == Role.GESTIONNAIRE){
+  <a routerLink="/evenements/{{evenement?.id}}/edit">
+      <button class="btn btn-primary mt-10 w-32">
+        MODIFIER
+      </button>
+    </a>
+}
+@if(user.role === Role.ADMIN){
+  <div class="divider divider-horizontal"></div>
+  <a>
+      <button class="btn btn-primary mt-10 w-32" (click)="supprEvent()">
+        @if (loadingSuppr) {
+          <span class="loading loading-spinner loading-md"></span>
+        }SUPPRIMER
+      </button>
+    </a>
+}
+</div>
+
+
+</div>

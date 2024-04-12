@@ -1,0 +1,74 @@
+<div class="p-10">
+<div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <h2 class="mt-10 text-center text-3xl font-bold leading-9 tracking-tight">Modifier l'évènement n°{{evenement?.id}}</h2>
+  </div>
+    <form [formGroup]="form" (ngSubmit)="updateEvent()">
+
+        <div class="mt-5">
+            <label for="titre" class="block text-xl font-medium leading-6">Titre
+                <div class="mt-2">
+                    @if(loading){
+                  <span class="loading loading-dots loading-lg"></span>
+                  }
+                  @else{
+                  <input formControlName="titre"
+                            placeholder=" "
+                            id="titre"
+                            name="titre"
+                            type="text"
+                            autocomplete="titre"
+                            required
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                  }
+                </div>
+            </label>
+        </div>
+
+        <div class="mt-5">
+            <label for="date_event" class="block text-xl font-medium leading-6">Date de l'évènement
+                <div class="mt-2">
+                    @if(loading){
+                  <span class="loading loading-dots loading-lg"></span>
+                  }
+                  @else{
+                  <input formControlName="date_event"
+                            placeholder=" "
+                            id="date_event"
+                            name="date_event"
+                            type="text"
+                            autocomplete="date_event"
+                            required
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                  }
+                </div>
+            </label>
+        </div>
+
+        <div class="mt-5">
+            <label for="description" class="block text-xl font-medium leading-6">Description
+                <div class="mt-2">
+                    @if(loading){
+                  <span class="loading loading-dots loading-lg"></span>
+                  }@else{
+                  <textarea formControlName="description"
+                            placeholder=" "
+                            id="description"
+                            name="description"
+                            type="text"
+                            autocomplete="description"
+                            required
+                            class="textarea w-full block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                      </textarea>
+                  }
+                </div>
+            </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-full mt-10">
+          @if (loadingChange) {
+              <span class="loading loading-spinner mr-2"></span>
+          }
+          Enregistrer
+        </button>
+    </form>
+</div>

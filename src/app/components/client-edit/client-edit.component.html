@@ -1,0 +1,13 @@
+<form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+  <input formControlName="name" placeholder="Name">
+  <input formControlName="email" placeholder="Email">
+  <input formControlName="password" placeholder="Password" type="password">
+  <input formControlName="confirmPassword" placeholder="Confirm Password" type="password">
+  <select formControlName="role">
+    <option value="gestionnaire">Gestionnaire</option>
+    <option value="admin">Admin</option>
+    <option value="actif">Actif</option>
+    <option value="non-actif">Non Actif</option>
+  </select>
+  <button type="submit">Submit</button>
+</form>
