@@ -8,6 +8,7 @@ import {Artiste} from "../../models/artiste";
 import {map, Observable} from "rxjs";
 import {AsyncPipe} from "@angular/common";
 import {RouterLink} from "@angular/router";
+import {MessageService} from "../../services/message.service";
 
 @Component({
   selector: 'app-event-list',
@@ -21,10 +22,12 @@ export class EventListComponent implements OnInit {
   authService:AuthentificationService = inject(AuthentificationService)
   artistesEvent: Artiste[] = [];
   loading =  false;
+  messageService = inject(MessageService)
 
   constructor(private eventService: EventService) { }
 
   ngOnInit(): void {
+    console.log(this.messageService.getMessage())
     this.getEvents();
   }
 

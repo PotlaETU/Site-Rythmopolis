@@ -8,6 +8,8 @@ import {Artiste} from "../../models/artiste";
 import {Evenement} from "../../models/evenement";
 import {EventService} from "../../services/event.service";
 import {Type} from "../../models/type";
+import {Router} from "@angular/router";
+import {MessageService} from "../../services/message.service";
 
 @Component({
   selector: 'app-create-evenement',
@@ -21,6 +23,7 @@ import {Type} from "../../models/type";
 export class CreateEvenementComponent {
   lieuService: LieuService = inject(LieuService);
   eventService = inject(EventService);
+  router = inject(Router);
 
   form = new FormGroup({
     titre: new FormControl(''),
@@ -31,9 +34,12 @@ export class CreateEvenementComponent {
   });
 
   lieux: Lieu[] = [];
-  events : Evenement[] = []
+  events: Evenement[] = []
   artistesList: Artiste[] = [];
   types: Type[] = Object.values(Type);
+
+  messageService = inject(MessageService)
+  loading:boolean = false
 
 
   get titre() {
@@ -96,23 +102,26 @@ export class CreateEvenementComponent {
   }
 
   getArtiste(): Artiste[] {
-    let artisteListe:Artiste[] = []
+    let artisteListe: Artiste[] = []
     console.log(this.events)
-    this.events.forEach(e=>{
-        e.artistes.forEach(a=>{
-          artisteListe.push(a)
-        })
+    this.events.forEach(e => {
+      e.artistes.forEach(a => {
+        artisteListe.push(a)
+      })
     })
     return artisteListe
   }
 
   onSubmit() {
+    this.loading = true
     console.log(this.form.value);
-    this.eventService.createEvenement(this.form).subscribe( e => {
+    this.eventService.createEvenement(this.form).subscribe(e => {
       console.log('Evenement créé');
     });
+    this.loading = false
+    this.messageService.setMessage("Evenement créé !")
+    this.router.navigateByUrl('/liste-event')
   }
-
 
 
 }
